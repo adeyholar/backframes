@@ -4,57 +4,72 @@ import { ClipPlayer } from "@/components/clip-player";
 import { Button } from "@/components/ui/button";
 import {
   CHANNEL_NAME,
-  EXERCISES,
-  EXERCISE_FRAMES,
   PRESENTER,
-  VIDEO_TITLE,
+  ROUTINES,
   clipLength,
-  getExercise,
+  exerciseFrames,
+  getRoutine,
   nextExerciseId,
   youtubeAt,
+  type Exercise,
+  type Routine,
 } from "@/lib/exercises";
 import { isFrameDone, useSession, type Side } from "@/lib/session-store";
 import { cn, formatClock } from "@/lib/utils";
 
 export function Studio() {
+  const routineId = useSession((s) => s.routineId);
   const activeId = useSession((s) => s.activeId);
   const loop = useSession((s) => s.loop);
   const playThrough = useSession((s) => s.playThrough);
   const completed = useSession((s) => s.completed);
+  const setRoutine = useSession((s) => s.setRoutine);
   const setActiveId = useSession((s) => s.setActiveId);
   const setLoop = useSession((s) => s.setLoop);
   const setPlayThrough = useSession((s) => s.setPlayThrough);
   const toggleSide = useSession((s) => s.toggleSide);
   const reset = useSession((s) => s.reset);
-
   const [armed, setArmed] = useState(false);
   const [hydrated, setHydrated] = useState(false);
-  const clip = getExercise(activeId);
+
+  const routine = getRoutine(routineId);
+  const frames = exerciseFrames(routine);
+  const clip =
+    routine.frames.find((frame) => frame.id === activeId) ?? frames[0] ?? routine.frames[0]!;
 
   useEffect(() => {
     void Promise.resolve(useSession.persist.rehydrate()).finally(() => {
+      const state = useSession.getState();
+      const current = getRoutine(state.routineId);
+      if (!current.frames.some((frame) => frame.id === state.activeId)) {
+        const first = exerciseFrames(current)[0] ?? current.frames[0];
+        if (first) state.setActiveId(first.id);
+      }
       setHydrated(true);
     });
   }, []);
 
   const doneCount = hydrated
-    ? EXERCISE_FRAMES.filter((item) => isFrameDone(completed, item.id)).length
+    ? frames.filter((item) => isFrameDone(completed, item.id)).length
     : 0;
 
   function handleEnded() {
     if (!playThrough) return;
-    const next = nextExerciseId(activeId, clip.kind === "exercise");
+    const next = nextExerciseId(routine, clip.id, clip.kind === "exercise");
     if (next) setActiveId(next);
     else setPlayThrough(false);
   }
 
   function startPlayThrough() {
-    const startId =
-      EXERCISE_FRAMES.find((item) => !isFrameDone(completed, item.id))?.id ??
-      EXERCISE_FRAMES[0]!.id;
+    const startId = frames.find((item) => !isFrameDone(completed, item.id))?.id ?? frames[0]!.id;
     setPlayThrough(true);
     setActiveId(startId);
     setArmed(true);
+  }
+
+  function chooseRoutine(next: Routine) {
+    const first = exerciseFrames(next)[0] ?? next.frames[0]!;
+    setRoutine(next.id, first.id);
   }
 
   return (
@@ -68,13 +83,13 @@ export function Studio() {
             BackFrames
           </h1>
           <p className="mt-3 max-w-prose text-sm text-muted-foreground sm:text-base">
-            Each frame plays only one stretch from {PRESENTER}’s {VIDEO_TITLE}. The
-            player is locked to that chapter so you never drift into the next demo.
+            Two routines from {PRESENTER}, stacked in one studio. Pick a video, then a
+            frame. The player stays inside that chapter.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <span className="mr-1 font-mono text-xs tabular-nums text-muted-foreground">
-            {doneCount}/{EXERCISE_FRAMES.length} sides complete
+            {doneCount}/{frames.length} sides complete
           </span>
           <Button
             type="button"
@@ -97,6 +112,8 @@ export function Studio() {
         </div>
       </header>
 
+      <RoutineCascade activeId={routine.id} onSelect={chooseRoutine} />
+
       <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(18rem,1fr)] lg:items-start">
         <div className="flex min-w-0 flex-col-reverse gap-4 lg:flex-col">
           <ClipPlayer
@@ -107,6 +124,7 @@ export function Studio() {
             onEnded={handleEnded}
           />
           <FrameStrip
+            frames={routine.frames}
             activeId={clip.id}
             completed={hydrated ? completed : {}}
             onSelect={setActiveId}
@@ -122,7 +140,7 @@ export function Studio() {
       <footer className="flex flex-col gap-3 border-t border-border pt-6 text-sm text-muted-foreground">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <a
-            href={youtubeAt(clip.start)}
+            href={youtubeAt(clip.videoId, clip.start)}
             target="_blank"
             rel="noreferrer"
             className="inline-flex h-11 items-center gap-2 text-foreground hover:underline"
@@ -147,11 +165,55 @@ export function Studio() {
   );
 }
 
+function RoutineCascade({
+  activeId,
+  onSelect,
+}: {
+  activeId: string;
+  onSelect: (routine: Routine) => void;
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">
+        Routines
+      </p>
+      <div className="grid gap-2 sm:grid-cols-2">
+        {ROUTINES.map((routine, index) => {
+          const active = routine.id === activeId;
+          const count = exerciseFrames(routine).length;
+          return (
+            <button
+              key={routine.id}
+              type="button"
+              onClick={() => onSelect(routine)}
+              aria-pressed={active}
+              className={cn(
+                "flex min-h-11 flex-col gap-1 rounded-lg px-4 py-3 text-left shadow-[var(--shadow-border)] transition-[background-color,box-shadow] duration-150 motion-reduce:transition-none",
+                active ? "bg-muted shadow-[var(--shadow-border-hover)]" : "bg-card hover:bg-raised",
+              )}
+            >
+              <span className="font-mono text-xs tabular-nums text-muted-foreground">
+                {String(index + 1).padStart(2, "0")} · {count} frames
+              </span>
+              <span className="font-display text-lg leading-snug text-foreground">
+                {routine.shortTitle}
+              </span>
+              <span className="text-sm text-muted-foreground">{routine.title}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function FrameStrip({
+  frames,
   activeId,
   completed,
   onSelect,
 }: {
+  frames: Exercise[];
   activeId: string;
   completed: Record<string, { left?: boolean; right?: boolean }>;
   onSelect: (id: string) => void;
@@ -163,7 +225,7 @@ function FrameStrip({
       </p>
       <div className="min-w-0 overflow-x-auto overscroll-x-contain pb-1 snap-x snap-mandatory">
         <div className="flex w-max gap-2 sm:grid sm:w-full sm:grid-cols-2 lg:grid-cols-4">
-        {EXERCISES.map((item) => {
+        {frames.map((item) => {
           const active = item.id === activeId;
           const done = item.kind === "exercise" && isFrameDone(completed, item.id);
           return (
@@ -205,7 +267,7 @@ function CuePanel({
   completed,
   onToggle,
 }: {
-  clip: ReturnType<typeof getExercise>;
+  clip: Exercise;
   completed?: { left?: boolean; right?: boolean };
   onToggle: (side: Side) => void;
 }) {
@@ -261,7 +323,7 @@ function CuePanel({
         </div>
       ) : (
         <a
-          href={youtubeAt(clip.start)}
+          href={youtubeAt(clip.videoId, clip.start)}
           target="_blank"
           rel="noreferrer"
           className="inline-flex h-11 items-center justify-center rounded-md bg-raised text-sm font-medium text-foreground"

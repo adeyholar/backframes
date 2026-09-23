@@ -1,12 +1,12 @@
-export const VIDEO_ID = "AlZm5IKaf1U";
-export const VIDEO_URL = `https://www.youtube.com/watch?v=${VIDEO_ID}`;
-export const VIDEO_TITLE = "The 3 Best Back Exercises (For NO MORE PAIN)";
 export const CHANNEL_NAME = "SpineCare Decompression and Chiropractic Center";
 export const PRESENTER = "Dr. Michael Rowe";
-export const VIDEO_DURATION = 618;
+
+export const BACK_VIDEO = "AlZm5IKaf1U";
+export const HIP_VIDEO = "krGkT8NymA4";
 
 export type Exercise = {
   id: string;
+  videoId: string;
   frame: string;
   title: string;
   start: number;
@@ -21,9 +21,19 @@ export type Exercise = {
   kind: "brief" | "exercise";
 };
 
-export const EXERCISES: Exercise[] = [
+export type Routine = {
+  id: string;
+  shortTitle: string;
+  title: string;
+  videoId: string;
+  duration: number;
+  frames: Exercise[];
+};
+
+const BACK_FRAMES: Exercise[] = [
   {
     id: "brief",
+    videoId: BACK_VIDEO,
     frame: "00",
     title: "The briefing",
     start: 0,
@@ -44,6 +54,7 @@ export const EXERCISES: Exercise[] = [
   },
   {
     id: "morning",
+    videoId: BACK_VIDEO,
     frame: "01",
     title: "Morning stretch",
     start: 11,
@@ -66,6 +77,7 @@ export const EXERCISES: Exercise[] = [
   },
   {
     id: "midday",
+    videoId: BACK_VIDEO,
     frame: "02",
     title: "Midday stretch",
     start: 292,
@@ -87,6 +99,7 @@ export const EXERCISES: Exercise[] = [
   },
   {
     id: "strengthen",
+    videoId: BACK_VIDEO,
     frame: "03",
     title: "Strengthening",
     start: 430,
@@ -108,14 +121,134 @@ export const EXERCISES: Exercise[] = [
   },
 ];
 
-export const EXERCISE_FRAMES = EXERCISES.filter((item) => item.kind === "exercise");
+const HIP_FRAMES: Exercise[] = [
+  {
+    id: "hip-brief",
+    videoId: HIP_VIDEO,
+    frame: "00",
+    title: "The briefing",
+    start: 0,
+    end: 84,
+    position: "Watch first",
+    hold: "—",
+    reps: "Once",
+    gear: "None",
+    summary:
+      "Why a high hip or short-leg feeling often starts in a locked pelvis, and how the next three frames mobilize it, then strengthen it.",
+    steps: [
+      "A high hip is an uneven pelvis. The first two frames try to get the joints and soft tissue moving. You may feel a pop or a self-release in the sacroiliac joint.",
+      "The last frame strengthens the muscles, ligaments, and tendons around the pelvis so the alignment holds longer.",
+      "Stay inside a comfortable range. Switch sides after each exercise.",
+    ],
+    note: "This clip is only the intro. The three frames after it are the exercises.",
+    kind: "brief",
+  },
+  {
+    id: "hip-iso",
+    videoId: HIP_VIDEO,
+    frame: "01",
+    title: "Isometric stick",
+    start: 84,
+    end: 171,
+    position: "On your back",
+    hold: "5–10 seconds",
+    reps: "5 each side",
+    gear: "Sturdy stick or broom",
+    summary:
+      "A stick between the thighs turns the legs into an isometric fight, so the pelvis and hips have to stabilize.",
+    steps: [
+      "Lie on the floor or a bed. Bend the knees and bring one knee up.",
+      "Slide a sturdy stick between the legs so the bottom leg supports it at the top of the knee.",
+      "Drive the bottom leg back toward you while the top leg drives away. That isometric pull lands in the pelvis and hips. Only go as far as is comfortable.",
+      "Hold 5 to 10 seconds, relax, and repeat 5 times. Then switch legs and repeat.",
+    ],
+    note: "A pop in the hip, pelvis, or low back can happen. Do not chase it.",
+    kind: "exercise",
+  },
+  {
+    id: "hip-squeeze",
+    videoId: HIP_VIDEO,
+    frame: "02",
+    title: "SI joint squeeze",
+    start: 171,
+    end: 222,
+    position: "On your back",
+    hold: "5 seconds",
+    reps: "5",
+    gear: "None",
+    summary:
+      "Fists between the knees, then a hard squeeze, to mobilize the sacroiliac joints.",
+    steps: [
+      "Lie flat and lift both legs.",
+      "Put your fists together and place them between the knees.",
+      "Drive the knees together and squeeze. Hold 5 seconds, relax, and repeat 5 times.",
+    ],
+    note: "This frame stops before the standing strength work starts.",
+    kind: "exercise",
+  },
+  {
+    id: "hip-strength",
+    videoId: HIP_VIDEO,
+    frame: "03",
+    title: "Step-down strength",
+    start: 222,
+    end: 355,
+    position: "Standing on a step",
+    hold: "5–10 seconds",
+    reps: "Up to 10, each side",
+    gear: "Stair or block, wall nearby",
+    summary:
+      "A slow single-leg lower from a step. The hanging leg drops while the pelvis stays level, then you hold at the bottom and again at the top.",
+    steps: [
+      "Stand with one foot on a block or stair and the other leg off the side. Use a wall or a stick if you need balance.",
+      "Lower the free leg slowly. Keep both legs as straight as you comfortably can. Stop before pain, and do not let the pelvis tip forward.",
+      "Hold the bottom stretch 5 to 10 seconds. Come back up and hold the top 5 to 10 seconds.",
+      "Repeat up to 10 slow reps, then switch the standing leg.",
+    ],
+    note: "This is the frame that helps the correction last between sessions.",
+    kind: "exercise",
+  },
+];
 
-export function getExercise(id: string): Exercise {
-  return EXERCISES.find((item) => item.id === id) ?? EXERCISES[1]!;
+export const ROUTINES: Routine[] = [
+  {
+    id: "back",
+    shortTitle: "Back",
+    title: "The 3 Best Back Exercises (For NO MORE PAIN)",
+    videoId: BACK_VIDEO,
+    duration: 618,
+    frames: BACK_FRAMES,
+  },
+  {
+    id: "hip",
+    shortTitle: "High hip",
+    title: "How to Self Correct a High Hip in 30 SECONDS",
+    videoId: HIP_VIDEO,
+    duration: 355,
+    frames: HIP_FRAMES,
+  },
+];
+
+export const EXERCISES = ROUTINES.flatMap((routine) => routine.frames);
+
+export function getRoutine(id: string): Routine {
+  return ROUTINES.find((routine) => routine.id === id) ?? ROUTINES[0]!;
 }
 
-export function nextExerciseId(id: string, exercisesOnly = true): string | null {
-  const list = exercisesOnly ? EXERCISE_FRAMES : EXERCISES;
+export function routineForFrame(frameId: string): Routine {
+  return ROUTINES.find((routine) => routine.frames.some((frame) => frame.id === frameId)) ?? ROUTINES[0]!;
+}
+
+export function exerciseFrames(routine: Routine): Exercise[] {
+  return routine.frames.filter((item) => item.kind === "exercise");
+}
+
+export function getExercise(id: string): Exercise {
+  return EXERCISES.find((item) => item.id === id) ?? exerciseFrames(ROUTINES[0]!)[0]!;
+}
+
+export function nextExerciseId(routine: Routine, id: string, exercisesOnly = true): string | null {
+  const list = exercisesOnly ? exerciseFrames(routine) : routine.frames;
   const index = list.findIndex((item) => item.id === id);
   if (index < 0 || index >= list.length - 1) return null;
   return list[index + 1]!.id;
@@ -125,9 +258,14 @@ export function clipLength(item: Exercise): number {
   return Math.max(0, item.end - item.start);
 }
 
-export function youtubeAt(start: number): string {
-  return `${VIDEO_URL}&t=${Math.floor(start)}s`;
+export function youtubeAt(videoId: string, start: number): string {
+  return `https://www.youtube.com/watch?v=${videoId}&t=${Math.floor(start)}s`;
 }
 
-export const THUMB_MAX = `https://i.ytimg.com/vi/${VIDEO_ID}/maxresdefault.jpg`;
-export const THUMB_HQ = `https://i.ytimg.com/vi/${VIDEO_ID}/hqdefault.jpg`;
+export function thumbMax(videoId: string): string {
+  return `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+}
+
+export function thumbHq(videoId: string): string {
+  return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+}

@@ -2,10 +2,9 @@ import { Pause, Play, RotateCcw, Volume2, VolumeX } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  THUMB_HQ,
-  THUMB_MAX,
-  VIDEO_ID,
   clipLength,
+  thumbHq,
+  thumbMax,
   type Exercise,
   youtubeAt,
 } from "@/lib/exercises";
@@ -34,7 +33,7 @@ export function ClipPlayer({ clip, loop, armed, onArm, onEnded }: ClipPlayerProp
   const [muted, setMuted] = useState(false);
   const [current, setCurrent] = useState(clip.start);
   const [failed, setFailed] = useState<string | null>(null);
-  const [thumb, setThumb] = useState(THUMB_MAX);
+  const [thumb, setThumb] = useState(() => thumbMax(clip.videoId));
   const instanceId = useId();
 
   clipRef.current = clip;
@@ -97,9 +96,9 @@ export function ClipPlayer({ clip, loop, armed, onArm, onEnded }: ClipPlayerProp
     try {
       const YT = await loadYouTubeIframeAPI();
       if (!hostRef.current) return;
-      const { start, end } = clipRef.current;
+      const { start, end, videoId } = clipRef.current;
       new YT.Player(hostRef.current, {
-        videoId: VIDEO_ID,
+        videoId,
         width: "100%",
         height: "100%",
         host: "https://www.youtube-nocookie.com",
@@ -155,17 +154,19 @@ export function ClipPlayer({ clip, loop, armed, onArm, onEnded }: ClipPlayerProp
   }, [armed, createPlayer]);
 
   useEffect(() => {
+    setThumb(thumbMax(clip.videoId));
+    setFailed(null);
     endedGate.current = false;
     const player = playerRef.current;
     if (!player) return;
     player.loadVideoById({
-      videoId: VIDEO_ID,
+      videoId: clip.videoId,
       startSeconds: clip.start,
       endSeconds: clip.end,
     });
     setCurrent(clip.start);
     setPlaying(true);
-  }, [clip.id, clip.start, clip.end]);
+  }, [clip.id, clip.videoId, clip.start, clip.end]);
 
   useEffect(() => {
     if (!armed) return;
@@ -265,7 +266,7 @@ export function ClipPlayer({ clip, loop, armed, onArm, onEnded }: ClipPlayerProp
               src={thumb}
               alt=""
               className="h-full w-full object-cover outline outline-1 -outline-offset-1 outline-foreground/10"
-              onError={() => setThumb(THUMB_HQ)}
+              onError={() => setThumb(thumbHq(clip.videoId))}
             />
             <div className="absolute inset-0 bg-background/55" />
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6 text-center">
@@ -278,7 +279,7 @@ export function ClipPlayer({ clip, loop, armed, onArm, onEnded }: ClipPlayerProp
                 <div className="flex flex-col items-center gap-3">
                   <p className="max-w-sm text-sm text-muted-foreground">{failed}</p>
                   <a
-                    href={youtubeAt(clip.start)}
+                    href={youtubeAt(clip.videoId, clip.start)}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex h-11 items-center rounded-md bg-accent px-4 text-sm font-medium text-accent-foreground"

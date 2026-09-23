@@ -14,7 +14,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Each frame plays one back exercise from Dr. Rowe’s daily routine. Clipped to that chapter — nothing else.",
+          "Two clipped routines from Dr. Rowe — back exercises and a high-hip correction. Each frame plays only that chapter.",
       },
       { name: "theme-color", content: "#10110f" },
     ],
