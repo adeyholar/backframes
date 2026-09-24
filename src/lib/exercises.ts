@@ -1,8 +1,6 @@
-export const CHANNEL_NAME = "SpineCare Decompression and Chiropractic Center";
-export const PRESENTER = "Dr. Michael Rowe";
-
 export const BACK_VIDEO = "AlZm5IKaf1U";
 export const HIP_VIDEO = "krGkT8NymA4";
+export const CUPPLES_VIDEO = "3Oc7V2xB2kQ";
 
 export type Exercise = {
   id: string;
@@ -25,6 +23,8 @@ export type Routine = {
   id: string;
   shortTitle: string;
   title: string;
+  presenter: string;
+  channel: string;
   videoId: string;
   duration: number;
   frames: Exercise[];
@@ -210,11 +210,104 @@ const HIP_FRAMES: Exercise[] = [
   },
 ];
 
+const CUPPLES_FRAMES: Exercise[] = [
+  {
+    id: "cupples-brief",
+    videoId: CUPPLES_VIDEO,
+    frame: "00",
+    title: "The test",
+    start: 0,
+    end: 267,
+    position: "Watch first",
+    hold: "—",
+    reps: "Once",
+    gear: "Floor",
+    summary:
+      "Why one hip sits higher, then the 90/90 test that shows which side is limited before you start the drills.",
+    steps: [
+      "A hiked hip is often the pelvis making up for limited internal rotation, so it can still push into the ground.",
+      "90/90 test: sit with one leg turned out (outer thigh down) and the other turned in (inner thigh down). Lean toward each end range.",
+      "The side that lacks external rotation is the higher hip. The opposite side, short on internal rotation, is the lower one.",
+      "If both sides feel stuck, do the log roll first. Then the stagger squat and the wall push.",
+    ],
+    note: "This clip is the explanation and the test. The three frames after it are the drills.",
+    kind: "brief",
+  },
+  {
+    id: "cupples-roll",
+    videoId: CUPPLES_VIDEO,
+    frame: "01",
+    title: "Slow log roll",
+    start: 267,
+    end: 375,
+    position: "Side-lying",
+    hold: "2–5 minutes",
+    reps: "Each side",
+    gear: "Mat, pillow, or towel",
+    summary:
+      "A slow backward roll that lowers overall tension when both hips feel stiff. It is not a stretch.",
+    steps: [
+      "Lie on your side. Put a mat, rolled pillow, or towel under the ribs and the pelvis. Hips sit at about a 70° angle.",
+      "Stack the arms in front of the chest. Breathe quietly through the nose. Do not force air in or out.",
+      "Slide the whole body backward, chest and pelvis staying lined up, then roll back to the start. It should feel like melting, not stretching.",
+      "Stay 2 to 5 minutes on each side. Going too far and chasing a stretch adds tension. That is the opposite of this drill.",
+    ],
+    note: "Use this first if the 90/90 test was tight on both sides.",
+    kind: "exercise",
+  },
+  {
+    id: "cupples-squat",
+    videoId: CUPPLES_VIDEO,
+    frame: "02",
+    title: "Stagger squat",
+    start: 375,
+    end: 510,
+    position: "Against a wall",
+    hold: "60 seconds",
+    reps: "3 holds, then 3×10",
+    gear: "Wall, foam roller, a weight",
+    summary:
+      "A staggered squat with the hiked-side foot back, so that hip can find the internal rotation it has been missing.",
+    steps: [
+      "Foam roller on the low back, resting against the wall. Feet about 2 to 3 feet forward.",
+      "Slide the hiked-side foot back until the big toe lines up with the end of the other foot’s arch. Hold a weight at the chest. Feet stay flat. Eyes forward.",
+      "Inhale at the top. Squat to just above parallel and hold. Stay heavy on the heels, chest roughly parallel to the wall, no big arch in the back, and don’t let a foot lift.",
+      "Hold 3 sets of 60 seconds. When that is easy, inhale down and exhale up for 3 sets of 10. Don’t lock the knees.",
+    ],
+    note: "The back foot is the hiked side. This frame ends before the wall push.",
+    kind: "exercise",
+  },
+  {
+    id: "cupples-push",
+    videoId: CUPPLES_VIDEO,
+    frame: "03",
+    title: "Wall push",
+    start: 510,
+    end: 884,
+    position: "Standing, one foot on the wall",
+    hold: "60 seconds",
+    reps: "3 holds, then 3×10",
+    gear: "Wall, optional weight",
+    summary:
+      "A diagonal step that loads the lower side while the hiked-side foot pushes the wall away.",
+    steps: [
+      "Hiked-side foot flat on the wall. Step the other leg slightly forward and turn that foot out.",
+      "Inhale through the nose and push the wall away, loading the front heel. You should feel the hiked-side glute and the front-side quad and hip.",
+      "A reach with the hiked-side arm can stop the trunk from swinging. Keep the wall foot flat. On the loading leg, stay heel-heavy with the knee over the second toe — no cave.",
+      "Hold 3 sets of 60 seconds, then 3 sets of 10 reps. Add a weight on the loading side when the push feels easy.",
+    ],
+    note: "This frame runs through the end of the demo, including the dynamic reps.",
+    kind: "exercise",
+  },
+];
+
 export const ROUTINES: Routine[] = [
   {
     id: "back",
     shortTitle: "Back",
     title: "The 3 Best Back Exercises (For NO MORE PAIN)",
+    presenter: "Dr. Michael Rowe",
+    channel: "SpineCare Decompression and Chiropractic Center",
     videoId: BACK_VIDEO,
     duration: 618,
     frames: BACK_FRAMES,
@@ -223,9 +316,21 @@ export const ROUTINES: Routine[] = [
     id: "hip",
     shortTitle: "High hip",
     title: "How to Self Correct a High Hip in 30 SECONDS",
+    presenter: "Dr. Michael Rowe",
+    channel: "SpineCare Decompression and Chiropractic Center",
     videoId: HIP_VIDEO,
     duration: 355,
     frames: HIP_FRAMES,
+  },
+  {
+    id: "uneven",
+    shortTitle: "Uneven hips",
+    title: "The ONLY 2 Exercises You Need to Fix Uneven Hips",
+    presenter: "Zac Cupples",
+    channel: "Zac Cupples",
+    videoId: CUPPLES_VIDEO,
+    duration: 884,
+    frames: CUPPLES_FRAMES,
   },
 ];
 

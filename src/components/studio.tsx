@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { ClipPlayer } from "@/components/clip-player";
 import { Button } from "@/components/ui/button";
 import {
-  CHANNEL_NAME,
-  PRESENTER,
   ROUTINES,
   clipLength,
   exerciseFrames,
@@ -83,8 +81,7 @@ export function Studio() {
             BackFrames
           </h1>
           <p className="mt-3 max-w-prose text-sm text-muted-foreground sm:text-base">
-            Two routines from {PRESENTER}, stacked in one studio. Pick a video, then a
-            frame. The player stays inside that chapter.
+            Pick a routine, then a frame. The player stays inside that chapter of that video.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -145,7 +142,7 @@ export function Studio() {
             rel="noreferrer"
             className="inline-flex h-11 items-center gap-2 text-foreground hover:underline"
           >
-            Original video · {CHANNEL_NAME}
+            Original video · {routine.channel}
             <ExternalLink className="size-3.5" />
           </a>
           <Button type="button" variant="ghost" size="sm" onClick={reset}>
@@ -157,7 +154,7 @@ export function Studio() {
           Demonstration only — not medical advice, diagnosis, or treatment. Consult a
           clinician before starting. This studio maps publicly available YouTube
           chapters so each frame plays a single exercise. It is not affiliated with{" "}
-          {CHANNEL_NAME}. Use of the original video remains subject to YouTube and
+          {routine.channel}. Use of the original video remains subject to YouTube and
           the presenter’s terms.
         </p>
       </footer>
@@ -177,7 +174,7 @@ function RoutineCascade({
       <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">
         Routines
       </p>
-      <div className="grid gap-2 sm:grid-cols-2">
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {ROUTINES.map((routine, index) => {
           const active = routine.id === activeId;
           const count = exerciseFrames(routine).length;
@@ -198,7 +195,8 @@ function RoutineCascade({
               <span className="font-display text-lg leading-snug text-foreground">
                 {routine.shortTitle}
               </span>
-              <span className="text-sm text-muted-foreground">{routine.title}</span>
+              <span className="text-sm text-muted-foreground">{routine.presenter}</span>
+              <span className="text-sm text-subtle">{routine.title}</span>
             </button>
           );
         })}

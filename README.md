@@ -1,17 +1,14 @@
 # BackFrames
 
-Each frame plays one chapter from Dr. Michael Rowe’s video
-[The 3 Best Back Exercises (For NO MORE PAIN)](https://youtu.be/AlZm5IKaf1U).
-The player stays inside that chapter.
+Each frame plays one chapter from a routine. Pick the video, then the frame. The player stays inside that chapter.
 
-| Frame | Exercise | Clip |
+| Routine | Video | Presenter |
 | --- | --- | --- |
-| 00 | The briefing | 0:00–0:11 |
-| 01 | Morning stretch | 0:11–4:52 |
-| 02 | Midday stretch | 4:52–7:10 |
-| 03 | Strengthening | 7:10–10:18 |
+| Back | [The 3 Best Back Exercises](https://youtu.be/AlZm5IKaf1U) | Dr. Michael Rowe |
+| High hip | [Self Correct a High Hip](https://youtu.be/krGkT8NymA4) | Dr. Michael Rowe |
+| Uneven hips | [The ONLY 2 Exercises You Need to Fix Uneven Hips](https://youtu.be/3Oc7V2xB2kQ) | Zac Cupples |
 
-This is a viewing aid, not medical advice, and it is not affiliated with SpineCare.
+This is a viewing aid, not medical advice, and it is not affiliated with the presenters.
 
 ## Run it on your computer
 
