@@ -14,7 +14,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Clipped exercise routines. Pick a video, then a frame — the player stays inside that chapter.",
+          "Clipped exercise videos, plus a sciatica test log. Keep what helps and build your own list.",
       },
       { name: "theme-color", content: "#10110f" },
     ],

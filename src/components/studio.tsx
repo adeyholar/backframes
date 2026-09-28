@@ -1,7 +1,9 @@
 import { Check, ExternalLink, Infinity, ListVideo, RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ClipPlayer } from "@/components/clip-player";
+import { TestLog } from "@/components/test-log";
 import { Button } from "@/components/ui/button";
+import { WorksList } from "@/components/works-list";
 import {
   ROUTINES,
   clipLength,
@@ -16,11 +18,13 @@ import { isFrameDone, useSession, type Side } from "@/lib/session-store";
 import { cn, formatClock } from "@/lib/utils";
 
 export function Studio() {
+  const module = useSession((s) => s.module);
   const routineId = useSession((s) => s.routineId);
   const activeId = useSession((s) => s.activeId);
   const loop = useSession((s) => s.loop);
   const playThrough = useSession((s) => s.playThrough);
   const completed = useSession((s) => s.completed);
+  const setModule = useSession((s) => s.setModule);
   const setRoutine = useSession((s) => s.setRoutine);
   const setActiveId = useSession((s) => s.setActiveId);
   const setLoop = useSession((s) => s.setLoop);
@@ -81,9 +85,14 @@ export function Studio() {
             BackFrames
           </h1>
           <p className="mt-3 max-w-prose text-sm text-muted-foreground sm:text-base">
-            Pick a routine, then a frame. The player stays inside that chapter of that video.
+            {module === "frames"
+              ? "Pick a routine, then a frame. The player stays inside that chapter of that video."
+              : module === "log"
+                ? "Test one sciatica drill a day. Keep what helps, then add it to your list."
+                : "The drills that fit. This is the list the next routine should be built from."}
           </p>
         </div>
+        {module === "frames" ? (
         <div className="flex flex-wrap items-center gap-2">
           <span className="mr-1 font-mono text-xs tabular-nums text-muted-foreground">
             {doneCount}/{frames.length} sides complete
@@ -107,8 +116,37 @@ export function Studio() {
             Loop clip
           </Button>
         </div>
+        ) : null}
       </header>
 
+      <div className="grid gap-2 sm:grid-cols-3" role="tablist" aria-label="BackFrames modules">
+        {(
+          [
+            ["frames", "Frames"],
+            ["log", "Test log"],
+            ["works", "What works"],
+          ] as const
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            role="tab"
+            aria-selected={module === id}
+            onClick={() => setModule(id)}
+            className={cn(
+              "min-h-11 rounded-lg px-4 text-left text-sm shadow-[var(--shadow-border)]",
+              module === id ? "bg-muted font-medium text-foreground" : "bg-card text-muted-foreground",
+            )}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {module === "log" ? <TestLog onOpenWorks={() => setModule("works")} /> : null}
+      {module === "works" ? <WorksList /> : null}
+      {module === "frames" ? (
+      <>
       <RoutineCascade activeId={routine.id} onSelect={chooseRoutine} />
 
       <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(18rem,1fr)] lg:items-start">
@@ -158,6 +196,8 @@ export function Studio() {
           the presenter’s terms.
         </p>
       </footer>
+      </>
+      ) : null}
     </div>
   );
 }

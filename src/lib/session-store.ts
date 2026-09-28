@@ -4,11 +4,13 @@ import { persist } from "zustand/middleware";
 export type Side = "left" | "right";
 
 type SessionState = {
+  module: "frames" | "log" | "works";
   routineId: string;
   activeId: string;
   loop: boolean;
   playThrough: boolean;
   completed: Record<string, { left?: boolean; right?: boolean }>;
+  setModule: (module: "frames" | "log" | "works") => void;
   setRoutine: (id: string, firstFrameId: string) => void;
   setActiveId: (id: string) => void;
   setLoop: (value: boolean) => void;
@@ -18,6 +20,7 @@ type SessionState = {
 };
 
 const EMPTY = {
+  module: "frames" as const,
   routineId: "back",
   activeId: "morning",
   loop: true,
@@ -29,6 +32,7 @@ export const useSession = create<SessionState>()(
   persist(
     (set) => ({
       ...EMPTY,
+      setModule: (module) => set({ module }),
       setRoutine: (id, firstFrameId) =>
         set({ routineId: id, activeId: firstFrameId, playThrough: false }),
       setActiveId: (id) => set({ activeId: id }),
@@ -61,6 +65,7 @@ export const useSession = create<SessionState>()(
         completed: state.completed,
         loop: state.loop,
         routineId: state.routineId,
+        module: state.module,
       }),
     },
   ),
