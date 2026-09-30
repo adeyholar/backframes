@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { HowClip } from "@/components/how-clip";
 import { SCIATICA_DRILLS, type Drill } from "@/lib/sciatica";
 import { useSciatica } from "@/lib/sciatica-store";
 
@@ -89,7 +90,8 @@ function Pile({
             const entry = entries[drill.id];
             const scores = [entry?.before, entry?.after, entry?.later, entry?.morning].filter((value) => value !== "");
             return (
-              <li key={drill.id} className="border-t border-border pt-3 first:border-t-0 first:pt-0">
+              <li key={drill.id} className="flex flex-col gap-3 border-t border-border pt-3 first:border-t-0 first:pt-0">
+                <HowClip drillId={drill.id} />
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <p className="font-display text-lg leading-tight">{drill.name}</p>

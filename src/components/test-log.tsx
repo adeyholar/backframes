@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { HowClip } from "@/components/how-clip";
 import {
   BRIDGE,
   DECIDED_KEEPS,
@@ -247,6 +248,7 @@ function DrillCard({
         <span className="text-sm text-muted-foreground">{drill.dose}</span>
       </div>
       <h3 className="font-display text-xl leading-tight">{drill.name}</h3>
+      <HowClip drillId={drill.id} />
       <p className="text-sm text-muted-foreground">{drill.note}</p>
       {locked ? (
         <p className="text-sm font-medium text-[#f0c7c4]">Do not test yet. This cannot be marked Keep.</p>

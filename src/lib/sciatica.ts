@@ -138,3 +138,53 @@ export function seedEntries(): Record<string, DrillEntry> {
 export function testableDrills(): Drill[] {
   return SCIATICA_DRILLS.filter((drill) => drill.preset !== "locked");
 }
+
+/** Grok Imagine posts from the Sciatica clips page. Retries replace the first take when the retry still exists. */
+export const DRILL_CLIPS: Record<string, string> = {
+  "prone-lie": "d0740ef5-f488-4a11-bc3f-71c53f7b8ab0",
+  cobra: "88bce49a-1b3d-4123-9731-cf514a64e20f",
+  standing: "28fcdf3d-9b91-488e-8ba9-f2536e8f119a",
+  shift: "97054f65-fd71-49a3-96f5-cdf7aa39721d",
+  flexion: "e7410641-d6ae-4f96-8d22-b449702ed26b",
+  glide: "ddb01a0a-2287-4c4a-b312-2bf0c5087368",
+  "slider-sit": "9bec5688-7ec2-4339-a7e9-9716aa615609",
+  "slider-lie": "55507d78-cf1c-4af0-907b-a17c81b54009",
+  pumps: "012e0809-b9f8-4ca1-9f80-407bee5d69f7",
+  tensioner: "ce50980c-f36c-45c3-9326-91cbce1613dc",
+  curlup: "5d0236c2-088a-4d72-8814-37e2ae11942b",
+  "plank-l": "364bfed6-a354-4a2a-8d9e-fe322f59eaa5",
+  "plank-r": "feaaac55-3c6d-4812-98f6-17c09844a915",
+  birddog: "bc6c7437-5efc-46b1-83be-7bcdbb8e83f8",
+  plank: "5b1b368e-879b-448e-b18e-d18664192d9b",
+  "slr-l": "82f509a7-2b0a-4545-9fbe-0ee9658904fb",
+  "clam-l": "87571dbb-0b24-4421-8e35-f6a4d009da59",
+  "clam-r": "3c2ef85a-6251-4299-bfd0-c3863d66af3a",
+  "rev-l": "a48f1f09-ae87-4475-b0c7-64783ca2d6b3",
+  "rev-r": "d471cc31-90a5-4ad5-9d93-c3c991bffbad",
+  band: "d83286c9-7676-43b6-b77e-50ea07432495",
+  hinge: "3148c1b4-b118-4ccb-8004-b1c562dd110e",
+  sts: "b4e9f0f5-2b15-45ab-b1b7-369442f43859",
+  sidebend: "d34d3dd4-5a32-47d1-b78b-98872a41f5a5",
+  hang: "9e301845-b3ff-4b9a-8e49-9f9ef00f1de5",
+  abd: "19333af5-9b60-42b1-99d4-d79dec5df066",
+  step: "2b4750f0-fad1-4433-92d2-39263bc96db1",
+  ball: "c45d6dd6-cce9-4fcc-981b-3ec92b88b042",
+  roller: "d68829bb-50bd-41f3-9dd1-9344c8cb505c",
+  heat: "613c5cb2-ea45-4c5e-aaf0-cbff455cc568",
+  ice: "b785d46c-019a-4bf5-ab95-a5fc26b25aaf",
+  walk: "64a0f1e1-663c-4fb4-bac3-d8cfba568531",
+  bike: "7862c6c2-5343-41f3-918a-7695e66e7bdb",
+  pool: "4966c5b3-ad1a-43ee-8aac-69574b47ec9f",
+};
+
+const CLIP_USER = "1f03eb33-52d1-462c-a712-720fb742f1ac";
+
+export function drillClip(id: string): { src: string; poster: string } | null {
+  const post = DRILL_CLIPS[id];
+  if (!post) return null;
+  const base = `https://assets.grok.com/users/${CLIP_USER}/generated/${post}`;
+  return {
+    src: `${base}/generated_video.mp4?cache=1`,
+    poster: `${base}/preview_image.jpg?cache=1`,
+  };
+}
