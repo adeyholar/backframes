@@ -177,14 +177,12 @@ export const DRILL_CLIPS: Record<string, string> = {
   pool: "4966c5b3-ad1a-43ee-8aac-69574b47ec9f",
 };
 
-const CLIP_USER = "1f03eb33-52d1-462c-a712-720fb742f1ac";
-
 export function drillClip(id: string): { src: string; poster: string } | null {
   const post = DRILL_CLIPS[id];
   if (!post) return null;
-  const base = `https://assets.grok.com/users/${CLIP_USER}/generated/${post}`;
+  // Hosted here. Grok's CDN only serves the first spine clips without a login cookie.
   return {
-    src: `${base}/generated_video.mp4?cache=1`,
-    poster: `${base}/preview_image.jpg?cache=1`,
+    src: `/clips/${post}.mp4`,
+    poster: `/clips/${post}.jpg`,
   };
 }
