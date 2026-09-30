@@ -1,21 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #10110f;
-  --color-foreground: #f2f0ea;
-  --color-card: #191a17;
-  --color-raised: #22231f;
-  --color-muted: #1e1f1c;
-  --color-muted-foreground: #9c9a91;
-  --color-subtle: #6e6d66;
-  --color-accent: #d8d4c8;
-  --color-accent-foreground: #10110f;
-  --color-border: #2c2d28;
-  --color-ring: #d8d4c8;
-  --color-done: #8b9a86;
+  --color-background: #f3eee4;
+  --color-foreground: #1c1814;
+  --color-card: #faf7f0;
+  --color-raised: #ebe4d6;
+  --color-muted: #e4ddd0;
+  --color-muted-foreground: #3f3a35;
+  --color-subtle: #5a534c;
+  --color-accent: #2f4a42;
+  --color-accent-foreground: #f6f1e8;
+  --color-border: #ddd4c6;
+  --color-ring: #2f4a42;
+  --color-done: #3d5c49;
+  --color-danger: #8f3d35;
 
-  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, "Times New Roman", serif;
 
   --radius-xs: 4px;
   --radius-sm: 8px;
@@ -24,8 +25,13 @@
   --radius-xl: 24px;
   --radius-2xl: 28px;
 
-  --shadow-border: 0 0 0 1px rgb(242 240 234 / 0.12);
-  --shadow-border-hover: 0 0 0 1px rgb(242 240 234 / 0.2);
+  --shadow-border:
+    0 0 0 1px color-mix(in oklab, #1c1814 8%, transparent),
+    0 1px 2px -1px color-mix(in oklab, #1c1814 8%, transparent),
+    0 8px 24px -16px color-mix(in oklab, #1c1814 18%, transparent);
+  --shadow-border-hover:
+    0 0 0 1px color-mix(in oklab, #2f4a42 28%, transparent),
+    0 8px 24px -16px color-mix(in oklab, #1c1814 18%, transparent);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }

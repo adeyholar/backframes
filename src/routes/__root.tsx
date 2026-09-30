@@ -16,7 +16,7 @@ export const Route = createRootRoute({
         content:
           "Clipped exercise videos, plus a sciatica test log. Keep what helps and build your own list.",
       },
-      { name: "theme-color", content: "#10110f" },
+      { name: "theme-color", content: "#f3eee4" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
@@ -31,7 +31,7 @@ export const Route = createRootRoute({
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;1,400&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap",
       },
     ],
   }),

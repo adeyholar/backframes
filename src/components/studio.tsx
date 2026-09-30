@@ -78,7 +78,7 @@ export function Studio() {
     <div className="flex flex-col gap-8">
       <header className="flex flex-col gap-5 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-xl">
-          <p className="text-xs font-medium tracking-[0.18em] text-muted-foreground uppercase">
+          <p className="text-xs font-semibold tracking-[0.18em] text-accent uppercase">
             Clipped exercise studio
           </p>
           <h1 className="mt-2 font-display text-4xl leading-tight tracking-[-0.03em] text-foreground sm:text-5xl">
@@ -135,7 +135,7 @@ export function Studio() {
             onClick={() => setModule(id)}
             className={cn(
               "min-h-11 rounded-lg px-4 text-left text-sm shadow-[var(--shadow-border)]",
-              module === id ? "bg-muted font-medium text-foreground" : "bg-card text-muted-foreground",
+              module === id ? "bg-accent font-medium text-accent-foreground" : "bg-card text-muted-foreground",
             )}
           >
             {label}

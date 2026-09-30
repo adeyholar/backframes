@@ -83,7 +83,7 @@ export function TestLog({ onOpenWorks }: { onOpenWorks: () => void }) {
         </ol>
       </section>
 
-      <p className="rounded-xl bg-[#2a1716] px-4 py-3 text-sm font-medium leading-relaxed text-[#f0c7c4]">
+      <p className="rounded-xl bg-[#f6ebe8] px-4 py-3 text-sm font-medium leading-relaxed text-danger">
         Loss of bladder or bowel control, saddle numbness, or a leg that keeps getting weaker means stop and get urgent care.
       </p>
 
@@ -96,7 +96,7 @@ export function TestLog({ onOpenWorks }: { onOpenWorks: () => void }) {
             onClick={() => setFilter(id)}
             className={cn(
               "inline-flex h-11 items-center rounded-full px-4 text-sm",
-              filter === id ? "bg-foreground text-background" : "bg-card text-foreground shadow-[var(--shadow-border)]",
+              filter === id ? "bg-accent text-accent-foreground" : "bg-card text-foreground shadow-[var(--shadow-border)]",
             )}
           >
             {label}
@@ -146,11 +146,11 @@ export function TestLog({ onOpenWorks }: { onOpenWorks: () => void }) {
               type="button"
               aria-expanded={isOpen}
               onClick={() => setOpen(isOpen ? null : section.id)}
-              className="flex min-h-11 items-center justify-between gap-3 rounded-xl bg-foreground px-4 py-3 text-left text-background"
+              className="flex min-h-11 items-center justify-between gap-3 rounded-xl bg-accent px-4 py-3 text-left text-accent-foreground"
             >
               <span>
                 <span className="block font-display text-lg leading-tight">{section.title}</span>
-                {section.hint ? <span className="mt-0.5 block text-sm text-background/70">{section.hint}</span> : null}
+                {section.hint ? <span className="mt-0.5 block text-sm text-accent-foreground/75">{section.hint}</span> : null}
               </span>
               <span className="shrink-0 font-mono text-xs tabular-nums">{left} untested</span>
             </button>
@@ -237,9 +237,9 @@ function DrillCard({
     <article
       className={cn(
         "flex flex-col gap-3 rounded-xl p-4 shadow-[var(--shadow-border)]",
-        status === "daily" && "bg-[#1c2620]",
-        status === "weekly" && "bg-[#1c2430]",
-        status === "drop" && "bg-[#2a1c1b]",
+        status === "daily" && "bg-[#e7f0ea]",
+        status === "weekly" && "bg-[#e6eef3]",
+        status === "drop" && "bg-[#f6ebe8]",
         (status === "untested" || status === "locked") && "bg-card",
       )}
     >
@@ -251,7 +251,7 @@ function DrillCard({
       <HowClip drillId={drill.id} />
       <p className="text-sm text-muted-foreground">{drill.note}</p>
       {locked ? (
-        <p className="text-sm font-medium text-[#f0c7c4]">Do not test yet. This cannot be marked Keep.</p>
+        <p className="text-sm font-medium text-danger">Do not test yet. This cannot be marked Keep.</p>
       ) : (
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           <Score label="Before" value={ready ? entry?.before ?? "" : ""} onChange={(value) => onField(drill.id, "before", value)} />
@@ -310,7 +310,7 @@ function ChoiceRow({
             onClick={() => onPick(choice.status)}
             className={cn(
               "min-h-11 rounded-md px-2 text-sm disabled:opacity-40",
-              pressed ? "bg-foreground font-medium text-background" : "bg-raised text-foreground",
+              pressed ? "bg-accent font-medium text-accent-foreground" : "bg-raised text-foreground",
             )}
           >
             {choice.label}
