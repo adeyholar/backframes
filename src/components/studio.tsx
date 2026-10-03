@@ -86,7 +86,7 @@ export function Studio() {
           </h1>
           <p className="mt-3 max-w-prose text-sm text-muted-foreground sm:text-base">
             {module === "frames"
-              ? "Pick a routine, then a frame. The player stays inside that chapter of that video."
+              ? "The shorts you sent are the first group. Pick one, then a frame."
               : module === "log"
                 ? "Test one sciatica drill a day. Keep what helps, then add it to your list."
                 : "The drills that fit. This is the list the next routine should be built from."}
@@ -210,13 +210,34 @@ function RoutineCascade({
   activeId: string;
   onSelect: (routine: Routine) => void;
 }) {
+  const shorts = ROUTINES.filter((routine) => routine.portrait).slice().reverse();
+  const longer = ROUTINES.filter((routine) => !routine.portrait);
+  return (
+    <div className="flex flex-col gap-6">
+      <RoutineGroup label="Shorts you sent" routines={shorts} activeId={activeId} onSelect={onSelect} />
+      <RoutineGroup label="Longer videos" routines={longer} activeId={activeId} onSelect={onSelect} />
+    </div>
+  );
+}
+
+function RoutineGroup({
+  label,
+  routines,
+  activeId,
+  onSelect,
+}: {
+  label: string;
+  routines: Routine[];
+  activeId: string;
+  onSelect: (routine: Routine) => void;
+}) {
   return (
     <div className="flex flex-col gap-2">
       <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">
-        Routines
+        {label}
       </p>
-      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-        {ROUTINES.map((routine, index) => {
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        {routines.map((routine) => {
           const active = routine.id === activeId;
           const count = exerciseFrames(routine).length;
           return (
@@ -231,7 +252,7 @@ function RoutineCascade({
               )}
             >
               <span className="font-mono text-xs tabular-nums text-muted-foreground">
-                {String(index + 1).padStart(2, "0")} · {count} frames
+                {count} frames
               </span>
               <span className="font-display text-lg leading-snug text-foreground">
                 {routine.shortTitle}
