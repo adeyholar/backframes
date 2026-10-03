@@ -702,6 +702,75 @@ const REHABFIX_WEEKS_FRAMES: Exercise[] = [
   },
 ];
 
+const REHABFIX_STEPS_FRAMES: Exercise[] = [
+  {
+    id: "steps-couch",
+    videoId: "JI3_WssLJbs",
+    frame: "01",
+    title: "Couch extension",
+    start: 30,
+    end: 41,
+    position: "Leaning on a couch",
+    hold: "Hips forward and down",
+    reps: "As shown",
+    gear: "Couch",
+    summary:
+      "Knees a few feet back from the couch. Push the hips forward and down to restore extension without grabbing the feet.",
+    steps: [
+      "Lean your upper body on the couch.",
+      "Set the knees a few feet back.",
+      "Push the hips forward and down.",
+      "The short opens with a feet-grab they say not to do. This frame starts after that.",
+    ],
+    note: "This frame is only the couch extension.",
+    kind: "exercise",
+  },
+  {
+    id: "steps-oblique",
+    videoId: "JI3_WssLJbs",
+    frame: "02",
+    title: "Oblique sit",
+    start: 41,
+    end: 56,
+    position: "Sitting, holding the couch",
+    hold: "Drive up, then lower",
+    reps: "As shown",
+    gear: "Couch",
+    summary:
+      "Hold the couch, sit into the oblique position, drive up through the knees while squeezing the glutes, then lower slowly.",
+    steps: [
+      "Hold the couch for support.",
+      "Get into the oblique sit.",
+      "Pull up, driving through the knees and squeezing the glutes.",
+      "Lower slowly. This is the hip and piriformis work.",
+    ],
+    note: "This frame stops before the QL dips.",
+    kind: "exercise",
+  },
+  {
+    id: "steps-ql",
+    videoId: "JI3_WssLJbs",
+    frame: "03",
+    title: "QL dips",
+    start: 56,
+    end: 75,
+    position: "Side plank from the knees",
+    hold: "Lower, then pull up",
+    reps: "As shown",
+    gear: "Mat or carpet",
+    summary:
+      "Painful side down, on the knees. Lower the hips to stretch the QL, then pull back up. Straighten the legs only when that feels easy.",
+    steps: [
+      "Start on your knees with the painful side down.",
+      "Lower the hips gently.",
+      "Pull back up.",
+      "Straighten the legs later if the knee version is easy.",
+    ],
+    note: "The player stops before the phone-number pitch.",
+    kind: "exercise",
+  },
+];
+
 export const ROUTINES: Routine[] = [
   {
     id: "back",
@@ -776,6 +845,17 @@ export const ROUTINES: Routine[] = [
     duration: 111,
     portrait: true,
     frames: REHABFIX_WEEKS_FRAMES,
+  },
+  {
+    id: "rehabfix-steps",
+    shortTitle: "3 steps",
+    title: "Why Sciatica Hurts, 3 Steps",
+    presenter: "RehabFix",
+    channel: "RehabFix",
+    videoId: "JI3_WssLJbs",
+    duration: 85,
+    portrait: true,
+    frames: REHABFIX_STEPS_FRAMES,
   },
 ];
 
