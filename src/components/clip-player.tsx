@@ -8,18 +8,19 @@ import {
   type Exercise,
   youtubeAt,
 } from "@/lib/exercises";
-import { formatClock } from "@/lib/utils";
+import { formatClock, cn } from "@/lib/utils";
 import { loadYouTubeIframeAPI, YT_STATE, type YTPlayer } from "@/lib/youtube";
 
 type ClipPlayerProps = {
   clip: Exercise;
   loop: boolean;
   armed: boolean;
+  portrait?: boolean;
   onArm: () => void;
   onEnded: () => void;
 };
 
-export function ClipPlayer({ clip, loop, armed, onArm, onEnded }: ClipPlayerProps) {
+export function ClipPlayer({ clip, loop, armed, portrait = false, onArm, onEnded }: ClipPlayerProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YTPlayer | null>(null);
   const clipRef = useRef(clip);
@@ -255,7 +256,12 @@ export function ClipPlayer({ clip, loop, armed, onArm, onEnded }: ClipPlayerProp
       className="overflow-hidden rounded-xl bg-card shadow-[var(--shadow-border)]"
       aria-label={`${clip.title} clip, ${formatClock(clip.start)} to ${formatClock(clip.end)}`}
     >
-      <div className="relative aspect-video bg-muted">
+      <div
+        className={cn(
+          "relative bg-muted",
+          portrait ? "mx-auto aspect-[9/16] h-[min(72vh,40rem)] w-auto max-w-full" : "aspect-video",
+        )}
+      >
         <div className={armed ? "yt-host" : "hidden"}>
           <div ref={hostRef} id={`yt-${instanceId}`} className="h-full w-full" />
         </div>
@@ -265,7 +271,10 @@ export function ClipPlayer({ clip, loop, armed, onArm, onEnded }: ClipPlayerProp
             <img
               src={thumb}
               alt=""
-              className="h-full w-full object-cover outline outline-1 -outline-offset-1 outline-foreground/10"
+              className={cn(
+                "h-full w-full outline outline-1 -outline-offset-1 outline-foreground/10",
+                portrait ? "object-contain" : "object-cover",
+              )}
               onError={() => setThumb(thumbHq(clip.videoId))}
             />
             <div className="absolute inset-0 bg-background/55" />

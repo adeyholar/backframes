@@ -1,6 +1,7 @@
 export const BACK_VIDEO = "AlZm5IKaf1U";
 export const HIP_VIDEO = "krGkT8NymA4";
 export const CUPPLES_VIDEO = "3Oc7V2xB2kQ";
+export const REHABFIX_VIDEO = "LVShMZEUros";
 
 export type Exercise = {
   id: string;
@@ -27,6 +28,7 @@ export type Routine = {
   channel: string;
   videoId: string;
   duration: number;
+  portrait?: boolean;
   frames: Exercise[];
 };
 
@@ -301,6 +303,96 @@ const CUPPLES_FRAMES: Exercise[] = [
   },
 ];
 
+const REHABFIX_FRAMES: Exercise[] = [
+  {
+    id: "rehab-brief",
+    videoId: REHABFIX_VIDEO,
+    frame: "00",
+    title: "Skip the hamstring stretch",
+    start: 0,
+    end: 31,
+    position: "Watch first",
+    hold: "—",
+    reps: "Once",
+    gear: "None",
+    summary:
+      "The wall hamstring stretch is the thing not to do. The tightness down the leg is treated as nerve tension from the low back, not a short muscle.",
+    steps: [
+      "The opening shows one leg up the wall and the other on the floor.",
+      "Pulling that already irritable nerve can make the leg worse.",
+      "The three frames after this work at the back and the nerve instead.",
+    ],
+    note: "This clip is only the warning. The exercises start in the next frame.",
+    kind: "brief",
+  },
+  {
+    id: "rehab-press",
+    videoId: REHABFIX_VIDEO,
+    frame: "01",
+    title: "Side press-up",
+    start: 31,
+    end: 51,
+    position: "Face down",
+    hold: "Comfortable range",
+    reps: "As shown",
+    gear: "Mat or carpet",
+    summary:
+      "Lie face down, take the painful leg out to the side, and press up into extension to ease pressure on that side of the disc.",
+    steps: [
+      "Lie on your stomach.",
+      "Bring the painful leg out to the side.",
+      "Press the chest up only as far as it stays comfortable. Hips stay down.",
+      "Each press is meant to calm the nerve pain in the leg, not to chase a deeper bend.",
+    ],
+    note: "This frame is only the side press-up.",
+    kind: "exercise",
+  },
+  {
+    id: "rehab-floss",
+    videoId: REHABFIX_VIDEO,
+    frame: "02",
+    title: "Sciatic nerve floss",
+    start: 51,
+    end: 81,
+    position: "Side-lying on a pillow",
+    hold: "Slow reps",
+    reps: "As shown",
+    gear: "Pillow",
+    summary:
+      "Side-lying over a pillow so the low back arches, then a slider: straighten the painful leg and look up, then bend the knee and look down.",
+    steps: [
+      "Lie on your side over a pillow so the low back arches toward the ceiling.",
+      "Hold the painful leg.",
+      "Straighten the leg and look up.",
+      "Bend the knee and look down. That is the floss. It is not a long hamstring pull.",
+    ],
+    note: "The pillow stays under you for this whole frame.",
+    kind: "exercise",
+  },
+  {
+    id: "rehab-frog",
+    videoId: REHABFIX_VIDEO,
+    frame: "03",
+    title: "Tactical frog",
+    start: 81,
+    end: 100,
+    position: "On all fours",
+    hold: "A deep sit, then a rock",
+    reps: "Each hip",
+    gear: "Mat or carpet",
+    summary:
+      "Knees wide, sit back to open the hips, then rock forward and turn one hip in at a time.",
+    steps: [
+      "Get on all fours and spread the knees wide.",
+      "Sit back as deep as you comfortably can.",
+      "Rock forward while turning one hip inward, then the other.",
+      "Stop before the pitch at the end of the short.",
+    ],
+    note: "The player stops before the phone-number pitch.",
+    kind: "exercise",
+  },
+];
+
 export const ROUTINES: Routine[] = [
   {
     id: "back",
@@ -331,6 +423,17 @@ export const ROUTINES: Routine[] = [
     videoId: CUPPLES_VIDEO,
     duration: 884,
     frames: CUPPLES_FRAMES,
+  },
+  {
+    id: "rehabfix",
+    shortTitle: "Sciatica fix",
+    title: "3 Exercises to Fix Sciatica Pain Fast",
+    presenter: "RehabFix",
+    channel: "RehabFix",
+    videoId: REHABFIX_VIDEO,
+    duration: 112,
+    portrait: true,
+    frames: REHABFIX_FRAMES,
   },
 ];
 
