@@ -138,6 +138,43 @@ export function Studio({ purposeId }: { purposeId: string }) {
 
       {purpose.kind === "log" ? <TestLog onOpenWorks={() => void navigate({ to: "/p/$purpose", params: { purpose: "works" } })} /> : null}
       {purpose.kind === "works" ? <WorksList /> : null}
+      {purpose.kind === "clip" && purpose.clipSrc ? (
+        <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:items-start">
+          <video
+            className="mx-auto aspect-[9/16] h-[min(72vh,40rem)] w-auto max-w-full rounded-xl bg-black object-contain shadow-[var(--shadow-border)]"
+            controls
+            playsInline
+            preload="metadata"
+            poster="/morning/five.jpg"
+            src={purpose.clipSrc}
+          />
+          <div className="flex flex-col gap-4 rounded-xl bg-card p-5 shadow-[var(--shadow-border)]">
+            <p className="font-mono text-xs tracking-[0.16em] text-muted-foreground uppercase">
+              What the clip shows
+            </p>
+            <ol className="flex list-decimal flex-col gap-2 pl-5 text-sm text-foreground">
+              <li>Arms across the body, 15 seconds each way.</li>
+              <li>Open the chest, about 30 seconds.</li>
+              <li>Turn the torso, about 30 seconds.</li>
+              <li>Reach overhead, about 30 seconds.</li>
+              <li>Hip hinge, about 30 seconds.</li>
+              <li>Lunge with a reach, about 30 seconds.</li>
+              <li>Deep squat to finish.</li>
+            </ol>
+            <a
+              href="https://x.com/korunmakilavuzu/status/2106128164464537780"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-11 items-center text-sm text-foreground hover:underline"
+            >
+              Original post
+            </a>
+            <p className="text-xs leading-relaxed text-subtle">
+              Demonstration only, not medical advice. This page plays that post. It is not one of the sciatica test drills.
+            </p>
+          </div>
+        </div>
+      ) : null}
       {purpose.kind === "frames" ? (
       <>
       {routines.length > 1 ? (

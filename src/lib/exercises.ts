@@ -864,11 +864,21 @@ export type Purpose = {
   title: string;
   aim: string;
   detail: string;
-  kind: "frames" | "log" | "works";
+  kind: "frames" | "log" | "works" | "clip";
   routineIds: string[];
+  clipSrc?: string;
 };
 
 export const PURPOSES: Purpose[] = [
+  {
+    id: "morning",
+    title: "Five minutes",
+    aim: "Every morning",
+    detail: "The five-minute morning routine from the post you sent. About a minute on screen.",
+    kind: "clip",
+    routineIds: [],
+    clipSrc: "/morning/five.mp4",
+  },
   {
     id: "shorts",
     title: "Sciatica shorts",

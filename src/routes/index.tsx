@@ -29,9 +29,11 @@ function Home() {
                 ? "One new drill a day"
                 : purpose.kind === "works"
                   ? "Keeps only"
-                  : purpose.routineIds.length > 1
-                    ? `${purpose.routineIds.length} routines`
-                    : `${frames} frames`;
+                  : purpose.kind === "clip"
+                    ? "Play the clip"
+                    : purpose.routineIds.length > 1
+                      ? `${purpose.routineIds.length} routines`
+                      : `${frames} frames`;
             return (
               <Link
                 key={purpose.id}
