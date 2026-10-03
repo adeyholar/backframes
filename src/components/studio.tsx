@@ -1,13 +1,14 @@
 import { Check, ExternalLink, Infinity, ListVideo, RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { ClipPlayer } from "@/components/clip-player";
 import { TestLog } from "@/components/test-log";
 import { Button } from "@/components/ui/button";
 import { WorksList } from "@/components/works-list";
 import {
-  ROUTINES,
   clipLength,
   exerciseFrames,
+  getPurpose,
   getRoutine,
   nextExerciseId,
   youtubeAt,
@@ -17,24 +18,27 @@ import {
 import { isFrameDone, useSession, type Side } from "@/lib/session-store";
 import { cn, formatClock } from "@/lib/utils";
 
-export function Studio() {
-  const module = useSession((s) => s.module);
+export function Studio({ purposeId }: { purposeId: string }) {
+  const purpose = getPurpose(purposeId);
+  const routines = purpose.routineIds
+    .map((id) => getRoutine(id))
+    .filter((routine, index) => purpose.routineIds[index] === routine.id);
+  const navigate = useNavigate();
   const routineId = useSession((s) => s.routineId);
   const activeId = useSession((s) => s.activeId);
   const loop = useSession((s) => s.loop);
   const playThrough = useSession((s) => s.playThrough);
   const completed = useSession((s) => s.completed);
-  const setModule = useSession((s) => s.setModule);
-  const setRoutine = useSession((s) => s.setRoutine);
   const setActiveId = useSession((s) => s.setActiveId);
   const setLoop = useSession((s) => s.setLoop);
   const setPlayThrough = useSession((s) => s.setPlayThrough);
   const toggleSide = useSession((s) => s.toggleSide);
   const reset = useSession((s) => s.reset);
+  const remember = useSession((s) => s.remember);
   const [armed, setArmed] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
-  const routine = getRoutine(routineId);
+  const routine = routines.find((item) => item.id === routineId) ?? routines[0] ?? getRoutine(routineId);
   const frames = exerciseFrames(routine);
   const clip =
     routine.frames.find((frame) => frame.id === activeId) ?? frames[0] ?? routine.frames[0]!;
@@ -42,14 +46,25 @@ export function Studio() {
   useEffect(() => {
     void Promise.resolve(useSession.persist.rehydrate()).finally(() => {
       const state = useSession.getState();
-      const current = getRoutine(state.routineId);
-      if (!current.frames.some((frame) => frame.id === state.activeId)) {
+      if (purpose.routineIds.length === 0) {
+        setHydrated(true);
+        return;
+      }
+      const remembered = state.focus?.[purpose.id];
+      const pick = purpose.routineIds.includes(remembered)
+        ? remembered
+        : purpose.routineIds.includes(state.routineId)
+          ? state.routineId
+          : purpose.routineIds[0]!;
+      const current = getRoutine(pick);
+      const frameOk = current.frames.some((frame) => frame.id === state.activeId);
+      if (state.routineId !== pick || !frameOk) {
         const first = exerciseFrames(current)[0] ?? current.frames[0];
-        if (first) state.setActiveId(first.id);
+        if (first) state.remember(purpose.id, current.id, frameOk ? state.activeId : first.id);
       }
       setHydrated(true);
     });
-  }, []);
+  }, [purpose.id]);
 
   const doneCount = hydrated
     ? frames.filter((item) => isFrameDone(completed, item.id)).length
@@ -71,28 +86,30 @@ export function Studio() {
 
   function chooseRoutine(next: Routine) {
     const first = exerciseFrames(next)[0] ?? next.frames[0]!;
-    setRoutine(next.id, first.id);
+    remember(purpose.id, next.id, first.id);
   }
 
   return (
     <div className="flex flex-col gap-8">
       <header className="flex flex-col gap-5 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-xl">
+          <Link
+            to="/"
+            className="inline-flex h-11 items-center text-sm text-muted-foreground hover:text-foreground"
+          >
+            All purposes
+          </Link>
           <p className="text-xs font-semibold tracking-[0.18em] text-accent uppercase">
-            Clipped exercise studio
+            {purpose.aim}
           </p>
           <h1 className="mt-2 font-display text-4xl leading-tight tracking-[-0.03em] text-foreground sm:text-5xl">
-            BackFrames
+            {purpose.title}
           </h1>
           <p className="mt-3 max-w-prose text-sm text-muted-foreground sm:text-base">
-            {module === "frames"
-              ? "The shorts you sent are the first group. Pick one, then a frame."
-              : module === "log"
-                ? "Test one sciatica drill a day. Keep what helps, then add it to your list."
-                : "The drills that fit. This is the list the next routine should be built from."}
+            {purpose.detail}
           </p>
         </div>
-        {module === "frames" ? (
+        {purpose.kind === "frames" ? (
         <div className="flex flex-wrap items-center gap-2">
           <span className="mr-1 font-mono text-xs tabular-nums text-muted-foreground">
             {doneCount}/{frames.length} sides complete
@@ -119,35 +136,13 @@ export function Studio() {
         ) : null}
       </header>
 
-      <div className="grid gap-2 sm:grid-cols-3" role="tablist" aria-label="BackFrames modules">
-        {(
-          [
-            ["frames", "Frames"],
-            ["log", "Test log"],
-            ["works", "What works"],
-          ] as const
-        ).map(([id, label]) => (
-          <button
-            key={id}
-            type="button"
-            role="tab"
-            aria-selected={module === id}
-            onClick={() => setModule(id)}
-            className={cn(
-              "min-h-11 rounded-lg px-4 text-left text-sm shadow-[var(--shadow-border)]",
-              module === id ? "bg-accent font-medium text-accent-foreground" : "bg-card text-muted-foreground",
-            )}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-
-      {module === "log" ? <TestLog onOpenWorks={() => setModule("works")} /> : null}
-      {module === "works" ? <WorksList /> : null}
-      {module === "frames" ? (
+      {purpose.kind === "log" ? <TestLog onOpenWorks={() => void navigate({ to: "/p/$purpose", params: { purpose: "works" } })} /> : null}
+      {purpose.kind === "works" ? <WorksList /> : null}
+      {purpose.kind === "frames" ? (
       <>
-      <RoutineCascade activeId={routine.id} onSelect={chooseRoutine} />
+      {routines.length > 1 ? (
+        <RoutineCascade routines={routines} activeId={routine.id} onSelect={chooseRoutine} />
+      ) : null}
 
       <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(18rem,1fr)] lg:items-start">
         <div className="flex min-w-0 flex-col-reverse gap-4 lg:flex-col">
@@ -204,29 +199,10 @@ export function Studio() {
 }
 
 function RoutineCascade({
-  activeId,
-  onSelect,
-}: {
-  activeId: string;
-  onSelect: (routine: Routine) => void;
-}) {
-  const shorts = ROUTINES.filter((routine) => routine.portrait).slice().reverse();
-  const longer = ROUTINES.filter((routine) => !routine.portrait);
-  return (
-    <div className="flex flex-col gap-6">
-      <RoutineGroup label="Shorts you sent" routines={shorts} activeId={activeId} onSelect={onSelect} />
-      <RoutineGroup label="Longer videos" routines={longer} activeId={activeId} onSelect={onSelect} />
-    </div>
-  );
-}
-
-function RoutineGroup({
-  label,
   routines,
   activeId,
   onSelect,
 }: {
-  label: string;
   routines: Routine[];
   activeId: string;
   onSelect: (routine: Routine) => void;
@@ -234,7 +210,7 @@ function RoutineGroup({
   return (
     <div className="flex flex-col gap-2">
       <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">
-        {label}
+        In this purpose
       </p>
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {routines.map((routine) => {

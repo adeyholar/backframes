@@ -10,8 +10,10 @@ type SessionState = {
   loop: boolean;
   playThrough: boolean;
   completed: Record<string, { left?: boolean; right?: boolean }>;
+  focus: Record<string, string>;
   setModule: (module: "frames" | "log" | "works") => void;
   setRoutine: (id: string, firstFrameId: string) => void;
+  remember: (purposeId: string, routineId: string, frameId: string) => void;
   setActiveId: (id: string) => void;
   setLoop: (value: boolean) => void;
   setPlayThrough: (value: boolean) => void;
@@ -26,6 +28,7 @@ const EMPTY = {
   loop: true,
   playThrough: false,
   completed: {} as Record<string, { left?: boolean; right?: boolean }>,
+  focus: {} as Record<string, string>,
 };
 
 export const useSession = create<SessionState>()(
@@ -35,6 +38,13 @@ export const useSession = create<SessionState>()(
       setModule: (module) => set({ module }),
       setRoutine: (id, firstFrameId) =>
         set({ routineId: id, activeId: firstFrameId, playThrough: false }),
+      remember: (purposeId, routineId, frameId) =>
+        set((state) => ({
+          routineId,
+          activeId: frameId,
+          playThrough: false,
+          focus: { ...(state.focus ?? {}), [purposeId]: routineId },
+        })),
       setActiveId: (id) => set({ activeId: id }),
       setLoop: (value) =>
         set((state) => ({
@@ -66,6 +76,7 @@ export const useSession = create<SessionState>()(
         loop: state.loop,
         routineId: state.routineId,
         module: state.module,
+        focus: state.focus,
       }),
     },
   ),

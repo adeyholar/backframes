@@ -859,6 +859,76 @@ export const ROUTINES: Routine[] = [
   },
 ];
 
+export type Purpose = {
+  id: string;
+  title: string;
+  aim: string;
+  detail: string;
+  kind: "frames" | "log" | "works";
+  routineIds: string[];
+};
+
+export const PURPOSES: Purpose[] = [
+  {
+    id: "shorts",
+    title: "Sciatica shorts",
+    aim: "Quick clips",
+    detail: "The RehabFix shorts you sent. One move per frame. The pitch is cut off.",
+    kind: "frames",
+    routineIds: [
+      "rehabfix-steps",
+      "rehabfix-weeks",
+      "rehabfix-roots",
+      "rehabfix-source",
+      "rehabfix",
+    ],
+  },
+  {
+    id: "log",
+    title: "Test log",
+    aim: "Find what helps",
+    detail: "One new sciatica drill a day. Score it, then keep it or drop it.",
+    kind: "log",
+    routineIds: [],
+  },
+  {
+    id: "works",
+    title: "What works",
+    aim: "The list you keep",
+    detail: "Drills you decided to keep, with the how-to clip for each one.",
+    kind: "works",
+    routineIds: [],
+  },
+  {
+    id: "back",
+    title: "Back",
+    aim: "Daily back work",
+    detail: "Morning stretch, midday stretch, then the strength that makes the relief last.",
+    kind: "frames",
+    routineIds: ["back"],
+  },
+  {
+    id: "hip",
+    title: "High hip",
+    aim: "A hip that sits high",
+    detail: "Mobilize the pelvis, then the step-down that helps the change hold.",
+    kind: "frames",
+    routineIds: ["hip"],
+  },
+  {
+    id: "uneven",
+    title: "Uneven hips",
+    aim: "One side higher",
+    detail: "The test, then the log roll, stagger squat, and wall push.",
+    kind: "frames",
+    routineIds: ["uneven"],
+  },
+];
+
+export function getPurpose(id: string): Purpose {
+  return PURPOSES.find((item) => item.id === id) ?? PURPOSES[0]!;
+}
+
 export const EXERCISES = ROUTINES.flatMap((routine) => routine.frames);
 
 export function getRoutine(id: string): Routine {
