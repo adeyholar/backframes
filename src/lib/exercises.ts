@@ -393,6 +393,96 @@ const REHABFIX_FRAMES: Exercise[] = [
   },
 ];
 
+const REHABFIX_SOURCE_FRAMES: Exercise[] = [
+  {
+    id: "rehab-source-brief",
+    videoId: "H9vE3fr_pAg",
+    frame: "00",
+    title: "Not a leg problem",
+    start: 0,
+    end: 24,
+    position: "Watch first",
+    hold: "—",
+    reps: "Once",
+    gear: "None",
+    summary:
+      "The nerve sits under the glute and the hamstring, so rubbing the leg does not last. The short treats the pain as coming from the low back.",
+    steps: [
+      "The opening shows how deep the nerve runs.",
+      "Massaging the hamstring or digging into the glute is what they say to skip.",
+      "The three frames after this are the work at the back.",
+    ],
+    note: "This clip is only the setup. The exercises start in the next frame.",
+    kind: "brief",
+  },
+  {
+    id: "rehab-source-press",
+    videoId: "H9vE3fr_pAg",
+    frame: "01",
+    title: "Relaxed press-up",
+    start: 24,
+    end: 42,
+    position: "Face down",
+    hold: "Exhale at the top",
+    reps: "As shown",
+    gear: "Mat or carpet",
+    summary:
+      "Hands under the shoulders, press up only as far as is comfortable, and keep the glutes and low back relaxed.",
+    steps: [
+      "Lie on your stomach with your hands under your shoulders.",
+      "Press up as far as it stays comfortable.",
+      "Exhale at the top. Glutes and low back stay relaxed, hips stay down.",
+      "The point is extension that eases disc pressure, not a deep yoga backbend.",
+    ],
+    note: "This frame is only the press-up.",
+    kind: "exercise",
+  },
+  {
+    id: "rehab-source-open",
+    videoId: "H9vE3fr_pAg",
+    frame: "02",
+    title: "Open the nerve path",
+    start: 42,
+    end: 61,
+    position: "Side-lying on a bed edge",
+    hold: "A gentle arch",
+    reps: "As shown",
+    gear: "Bed or couch, pillow",
+    summary:
+      "Painful side up, on the edge of a bed or couch, pillow under the waist so the low back arches and the nerve exit has more room.",
+    steps: [
+      "Lie on the edge of a bed or couch.",
+      "Painful side faces up.",
+      "Put a pillow under the waist so the low back arches gently toward the ceiling.",
+      "Stay there. This frame does not add a leg pull.",
+    ],
+    note: "This frame stops before the side plank starts.",
+    kind: "exercise",
+  },
+  {
+    id: "rehab-source-plank",
+    videoId: "H9vE3fr_pAg",
+    frame: "03",
+    title: "Knee side plank",
+    start: 61,
+    end: 86,
+    position: "Side plank from the knees",
+    hold: "Lift, then lower",
+    reps: "As shown",
+    gear: "Mat or carpet",
+    summary:
+      "From the knees, lift the hips up and forward, separate the knees at the top, then lower and tap the glute.",
+    steps: [
+      "Set up in a side plank on your knees.",
+      "Lift the hips up and forward.",
+      "Separate the knees at the top.",
+      "Lower slowly, tap the glute, and repeat.",
+    ],
+    note: "The player stops before the phone-number pitch.",
+    kind: "exercise",
+  },
+];
+
 export const ROUTINES: Routine[] = [
   {
     id: "back",
@@ -434,6 +524,17 @@ export const ROUTINES: Routine[] = [
     duration: 112,
     portrait: true,
     frames: REHABFIX_FRAMES,
+  },
+  {
+    id: "rehabfix-source",
+    shortTitle: "Wrong area",
+    title: "The Reason Your Sciatica Keeps Coming Back",
+    presenter: "RehabFix",
+    channel: "RehabFix",
+    videoId: "H9vE3fr_pAg",
+    duration: 100,
+    portrait: true,
+    frames: REHABFIX_SOURCE_FRAMES,
   },
 ];
 

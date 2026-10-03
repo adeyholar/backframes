@@ -215,7 +215,7 @@ function RoutineCascade({
       <p className="text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase">
         Routines
       </p>
-      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {ROUTINES.map((routine, index) => {
           const active = routine.id === activeId;
           const count = exerciseFrames(routine).length;
