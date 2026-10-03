@@ -30,7 +30,9 @@ function Home() {
                 : purpose.kind === "works"
                   ? "Keeps only"
                   : purpose.kind === "clip"
-                    ? "Play the clip"
+                    ? purpose.clips
+                      ? `${purpose.clips.length} clips`
+                      : "Play the clip"
                     : purpose.routineIds.length > 1
                       ? `${purpose.routineIds.length} routines`
                       : `${frames} frames`;

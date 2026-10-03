@@ -859,6 +859,16 @@ export const ROUTINES: Routine[] = [
   },
 ];
 
+export type ClipSource = {
+  id: string;
+  title: string;
+  src: string;
+  poster: string;
+  credit: string;
+  href: string;
+  note: string;
+};
+
 export type Purpose = {
   id: string;
   title: string;
@@ -867,6 +877,7 @@ export type Purpose = {
   kind: "frames" | "log" | "works" | "clip";
   routineIds: string[];
   clipSrc?: string;
+  clips?: ClipSource[];
 };
 
 export const PURPOSES: Purpose[] = [
@@ -878,6 +889,34 @@ export const PURPOSES: Purpose[] = [
     kind: "clip",
     routineIds: [],
     clipSrc: "/morning/five.mp4",
+  },
+  {
+    id: "strength",
+    title: "Lower back strength",
+    aim: "From X",
+    detail: "Your account had no lower-back videos. These two strength clips are from other posts on X.",
+    kind: "clip",
+    routineIds: [],
+    clips: [
+      {
+        id: "floor",
+        title: "Floor lift",
+        src: "/strength/floor.mp4",
+        poster: "/strength/floor.jpg",
+        credit: "@TheNiDiVi",
+        href: "https://x.com/TheNiDiVi/status/2105707666924614106",
+        note: "Face down, lift the chest a short way, then lower. No bench.",
+      },
+      {
+        id: "extension",
+        title: "Back extension",
+        src: "/strength/extension.mp4",
+        poster: "/strength/extension.jpg",
+        credit: "@evan_physique",
+        href: "https://x.com/evan_physique/status/2106120310604861591",
+        note: "On a back-extension bench. Slow, with a stretch at the bottom. No swinging.",
+      },
+    ],
   },
   {
     id: "shorts",

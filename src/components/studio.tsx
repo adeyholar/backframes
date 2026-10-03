@@ -138,6 +138,37 @@ export function Studio({ purposeId }: { purposeId: string }) {
 
       {purpose.kind === "log" ? <TestLog onOpenWorks={() => void navigate({ to: "/p/$purpose", params: { purpose: "works" } })} /> : null}
       {purpose.kind === "works" ? <WorksList /> : null}
+      {purpose.kind === "clip" && purpose.clips ? (
+        <div className="grid min-w-0 gap-4 sm:grid-cols-2">
+          {purpose.clips.map((item) => (
+            <figure key={item.id} className="flex min-w-0 flex-col gap-3">
+              <video
+                className="aspect-[9/16] max-h-[32rem] w-full rounded-xl bg-black object-contain shadow-[var(--shadow-border)]"
+                controls
+                playsInline
+                preload="metadata"
+                poster={item.poster}
+                src={item.src}
+              />
+              <figcaption className="flex flex-col gap-1 px-1">
+                <span className="font-display text-2xl tracking-[-0.02em] text-foreground">{item.title}</span>
+                <span className="text-sm text-muted-foreground">{item.note}</span>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-11 items-center text-sm text-foreground hover:underline"
+                >
+                  {item.credit}
+                </a>
+              </figcaption>
+            </figure>
+          ))}
+          <p className="text-xs leading-relaxed text-subtle sm:col-span-2">
+            Demonstration only, not medical advice. Stop if pain runs down the leg. These are not in the sciatica test list.
+          </p>
+        </div>
+      ) : null}
       {purpose.kind === "clip" && purpose.clipSrc ? (
         <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:items-start">
           <video
