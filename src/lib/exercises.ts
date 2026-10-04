@@ -771,7 +771,65 @@ const REHABFIX_STEPS_FRAMES: Exercise[] = [
   },
 ];
 
+const HARRIS_FRAMES: Exercise[] = [
+  {
+    id: "harris-why",
+    videoId: "GdG8ZqwoXMo",
+    frame: "00",
+    title: "Not just the piriformis",
+    start: 0,
+    end: 70,
+    position: "Watch first",
+    hold: "—",
+    reps: "Once",
+    gear: "None",
+    summary:
+      "The short’s point: a tight piriformis can matter, but an arched low back can compress the nerve too. The drill that follows tips the pelvis back.",
+    steps: [
+      "Stretching the piriformis is not the whole story in this clip.",
+      "An overly arched low back, anterior pelvic tilt, can crowd the nerve.",
+      "The next frame is the drill: flatten the low back by dragging the heels.",
+    ],
+    note: "Explanation only. The exercise starts in the next frame.",
+    kind: "brief",
+  },
+  {
+    id: "harris-drag",
+    videoId: "GdG8ZqwoXMo",
+    frame: "01",
+    title: "Heel drag",
+    start: 70,
+    end: 177,
+    position: "On your back, feet on a wall",
+    hold: "Quiet breaths",
+    reps: "Stay and breathe",
+    gear: "Wall. Foam roller and a pillow are optional.",
+    summary:
+      "Hips and knees at about 90°. Drag the heels down without sliding the feet so the tailbone lifts and the low back flattens. Hamstrings work. Glutes stay quiet.",
+    steps: [
+      "Lie on your back. Hips and knees each bent about 90°, feet flat on the wall. A book under the heels is optional leverage.",
+      "A foam roller between the thighs is optional. Knees stay in line with the feet and hips. Chin points at the ceiling, relaxed.",
+      "Keep the whole foot flat and soft. Think of dragging the heels down the wall. The feet do not actually slide.",
+      "The tailbone lifts a little and the low back flattens into the floor. You should feel both hamstrings. If the low back will not flatten, slide a pillow under the tailbone and drag the heels again.",
+      "Optional: once the hamstrings are on and nothing else is working, squeeze the roller at about 2 out of 10 so the inner thighs join in. Keep the feet flat, weight through the heels, and breathe.",
+    ],
+    note: "One drill, plus the light squeeze and the pillow fallback. Not medical advice. Stop if pain runs farther down the leg.",
+    kind: "exercise",
+  },
+];
+
 export const ROUTINES: Routine[] = [
+  {
+    id: "harris-tilt",
+    shortTitle: "Heel drag",
+    title: "This Fixes Sciatica More Than Stretching",
+    presenter: "Conor Harris",
+    channel: "Conor Harris",
+    videoId: "GdG8ZqwoXMo",
+    duration: 177,
+    portrait: true,
+    frames: HARRIS_FRAMES,
+  },
   {
     id: "back",
     shortTitle: "Back",
@@ -922,9 +980,10 @@ export const PURPOSES: Purpose[] = [
     id: "shorts",
     title: "Sciatica shorts",
     aim: "Quick clips",
-    detail: "The RehabFix shorts you sent. One move per frame. The pitch is cut off.",
+    detail: "The shorts you sent. One move per frame.",
     kind: "frames",
     routineIds: [
+      "harris-tilt",
       "rehabfix-steps",
       "rehabfix-weeks",
       "rehabfix-roots",
