@@ -818,7 +818,148 @@ const HARRIS_FRAMES: Exercise[] = [
   },
 ];
 
+const L5_STEPS_FRAMES: Exercise[] = [
+  {
+    id: "l5-map",
+    videoId: "bK49Qh1STSk",
+    frame: "00",
+    title: "The L5 line",
+    start: 0,
+    end: 28,
+    position: "Watch first",
+    hold: "—",
+    reps: "Once",
+    gear: "None",
+    summary:
+      "The short’s map: back of the thigh into the calf or foot is called S1, the side of the thigh into the shin and the top of the foot is called L5, and the front of the thigh is called L4.",
+    steps: [
+      "This frame is the map, not a diagnosis.",
+      "L5, in this clip, is the side of the thigh, the shin, and the top of the foot.",
+      "The next three frames are the drills they pair with that pattern.",
+    ],
+    note: "Explanation only. The work starts in the next frame.",
+    kind: "brief",
+  },
+  {
+    id: "l5-unload",
+    videoId: "bK49Qh1STSk",
+    frame: "01",
+    title: "Unload",
+    start: 28,
+    end: 46,
+    position: "On your back, feet on a wall",
+    hold: "Slow belly breaths",
+    reps: "Stay and breathe",
+    gear: "Wall",
+    summary:
+      "Hips and knees at about 90°, feet on the wall. The point is to take pressure off the discs and let the belly move while you breathe.",
+    steps: [
+      "Lie on your back with your feet on the wall.",
+      "Hips and knees each bent about 90°.",
+      "Breathe slowly into the belly.",
+      "Stay relaxed. This is not a hamstring stretch.",
+    ],
+    note: "This frame is only the wall unload.",
+    kind: "exercise",
+  },
+  {
+    id: "l5-extend",
+    videoId: "bK49Qh1STSk",
+    frame: "02",
+    title: "Press-up",
+    start: 46,
+    end: 64,
+    position: "Face down",
+    hold: "Elbows, then a press",
+    reps: "As shown",
+    gear: "Mat or carpet",
+    summary:
+      "On your stomach, prop on the elbows first. If that eases the leg, press up with the glutes relaxed and the hips down.",
+    steps: [
+      "Roll onto your stomach and rest on your elbows.",
+      "If the leg eases, progress to a press-up.",
+      "Glutes stay relaxed. Hips stay down.",
+      "Breathe. Stop if pain runs farther down the leg.",
+    ],
+    note: "This frame is the extension, from the elbows through the press-up.",
+    kind: "exercise",
+  },
+  {
+    id: "l5-floss",
+    videoId: "bK49Qh1STSk",
+    frame: "03",
+    title: "Nerve floss",
+    start: 64,
+    end: 83,
+    position: "On your back",
+    hold: "To the first tension, not past it",
+    reps: "10–15",
+    gear: "None",
+    summary:
+      "Hold the painful leg. Straighten the knee and look up, then bend the knee and look down. Stop at the first tension.",
+    steps: [
+      "Lie on your back and hold the painful leg.",
+      "Straighten the knee only to the first pull, and look up.",
+      "Bend the knee and look down.",
+      "About 10 to 15 reps. It is a slide, not a long hamstring stretch.",
+    ],
+    note: "The player runs through the end of the short. Not medical advice.",
+    kind: "exercise",
+  },
+];
+
+const L5_MORE_FRAMES: Exercise[] = [
+  {
+    id: "l5-more-brief",
+    videoId: "newfiFACOc4",
+    frame: "00",
+    title: "Same root, other clips",
+    start: 0,
+    end: 24,
+    position: "Watch first",
+    hold: "—",
+    reps: "Once",
+    gear: "None",
+    summary:
+      "These are the other drills already in the app that aim at the same root: extension, an opening on the painful side, a brace, a shifted press-up, and a side-lying floss.",
+    steps: [
+      "This is the map from the other short, which also calls the outer leg and the top of the foot L5.",
+      "The frames after this are those drills, not a second program.",
+      "Skip any one that sends pain farther down the leg.",
+    ],
+    note: "The exercises start in the next frame.",
+    kind: "brief",
+  },
+  { ...REHABFIX_ROOTS_FRAMES[1]!, id: "l5-allfours", frame: "01" },
+  { ...REHABFIX_ROOTS_FRAMES[2]!, id: "l5-opening", frame: "02" },
+  { ...REHABFIX_ROOTS_FRAMES[3]!, id: "l5-lifts", frame: "03" },
+  { ...REHABFIX_FRAMES[1]!, id: "l5-side-press", frame: "04" },
+  { ...REHABFIX_FRAMES[2]!, id: "l5-side-floss", frame: "05" },
+];
+
 export const ROUTINES: Routine[] = [
+  {
+    id: "l5-steps",
+    shortTitle: "L5 line",
+    title: "3-Step Sciatica Fix",
+    presenter: "RehabFix",
+    channel: "RehabFix",
+    videoId: "bK49Qh1STSk",
+    duration: 83,
+    portrait: true,
+    frames: L5_STEPS_FRAMES,
+  },
+  {
+    id: "l5-more",
+    shortTitle: "More for L5",
+    title: "Other drills for the L5 path",
+    presenter: "RehabFix",
+    channel: "RehabFix",
+    videoId: "newfiFACOc4",
+    duration: 83,
+    portrait: true,
+    frames: L5_MORE_FRAMES,
+  },
   {
     id: "harris-tilt",
     shortTitle: "Heel drag",
@@ -939,6 +1080,15 @@ export type Purpose = {
 };
 
 export const PURPOSES: Purpose[] = [
+  {
+    id: "l5",
+    title: "L5 line",
+    aim: "Side of the leg",
+    detail:
+      "The path that short calls L5: side of the thigh, shin, and the top of the foot. The drills aimed at that root. Not a diagnosis.",
+    kind: "frames",
+    routineIds: ["l5-steps", "l5-more"],
+  },
   {
     id: "morning",
     title: "Five minutes",
