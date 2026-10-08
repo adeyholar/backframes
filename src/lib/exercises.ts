@@ -1050,6 +1050,96 @@ const PIRIFORMIS_FRAMES: Exercise[] = [
   },
 ];
 
+const STACEY_FRAMES: Exercise[] = [
+  {
+    id: "stacey-why",
+    videoId: "UCDOYknb1RU",
+    frame: "00",
+    title: "Why the stretch backfires",
+    start: 0,
+    end: 140,
+    position: "Watch first",
+    hold: "—",
+    reps: "Once",
+    gear: "None",
+    summary:
+      "A hamstring stretch is treated as more tension on an already irritated nerve. The two drills after this open the exit and slide the nerve instead.",
+    steps: [
+      "Tightness down the leg is not treated as a short hamstring.",
+      "The first drill opens the side the nerve exits.",
+      "The second is a slow floss, not a held stretch.",
+      "The player stops before the free-group pitch.",
+    ],
+    note: "Explanation and the short disclaimer. The first drill starts at 2:20.",
+    kind: "brief",
+  },
+  {
+    id: "stacey-side",
+    videoId: "UCDOYknb1RU",
+    frame: "01",
+    title: "Side-lying opener",
+    start: 140,
+    end: 244,
+    position: "Side-lying, painful side up",
+    hold: "A couple of minutes",
+    reps: "Once, then rest",
+    gear: "Pillow or folded blanket",
+    summary:
+      "Painful side up, knees slightly bent, a folded pillow under the waist so that side of the spine opens. Stay and let it settle.",
+    steps: [
+      "Lie on your side with the painful side facing up.",
+      "Bend the knees a little, as if curling into a ball.",
+      "Put a folded pillow or blanket under the waist.",
+      "Relax there for a couple of minutes. Do not pull the leg.",
+    ],
+    note: "This frame is only the side-lying opener.",
+    kind: "exercise",
+  },
+  {
+    id: "stacey-floss",
+    videoId: "UCDOYknb1RU",
+    frame: "02",
+    title: "Nerve floss",
+    start: 244,
+    end: 376,
+    position: "On your back",
+    hold: "To the first pull, not past it",
+    reps: "8–10",
+    gear: "None",
+    summary:
+      "Support the painful leg. Straighten the knee and point the toes up as the chin lifts, then bend the knee and look down. Slow. No bounce.",
+    steps: [
+      "Lie on your back and support the painful leg behind the thigh.",
+      "Straighten the knee only to the first mild pull. Toes come up, chin lifts a little.",
+      "Bend the knee, point the toes down, and look down.",
+      "8 to 10 slow passes. Stop if it zaps or turns sharp.",
+    ],
+    note: "This frame is only the floss.",
+    kind: "exercise",
+  },
+  {
+    id: "stacey-retest",
+    videoId: "UCDOYknb1RU",
+    frame: "03",
+    title: "Retest",
+    start: 376,
+    end: 493,
+    position: "Watch last",
+    hold: "—",
+    reps: "Once",
+    gear: "None",
+    summary:
+      "The close treats sciatica as a low-back problem. Opening the exit is the point. Stretching before that is what they say can make it worse.",
+    steps: [
+      "Notice whether the leg feels quieter after the opener and the floss.",
+      "If pain ran farther down the leg, stop and skip that drill next time.",
+      "This is not a hamstring program.",
+    ],
+    note: "The player stops before the free-group pitch. Not medical advice.",
+    kind: "brief",
+  },
+];
+
 export const ROUTINES: Routine[] = [
   {
     id: "l5-steps",
@@ -1071,6 +1161,16 @@ export const ROUTINES: Routine[] = [
     videoId: "yBRSQB0Xyb0",
     duration: 761,
     frames: PIRIFORMIS_FRAMES,
+  },
+  {
+    id: "stacey-open",
+    shortTitle: "Don't stretch",
+    title: "Stretching for Sciatica Pain Relief Is Making It Worse",
+    presenter: "Michael Stacey",
+    channel: "Michael Stacey",
+    videoId: "UCDOYknb1RU",
+    duration: 540,
+    frames: STACEY_FRAMES,
   },
   {
     id: "l5-more",
@@ -1219,6 +1319,15 @@ export const PURPOSES: Purpose[] = [
     detail: "Four strength drills for a piriformis that feels tight. The program pitch is cut off. Not on the L5 page.",
     kind: "frames",
     routineIds: ["piriformis"],
+  },
+  {
+    id: "stacey",
+    title: "Don't stretch",
+    aim: "Open the exit",
+    detail:
+      "A side-lying opener and a nerve floss. The hamstring stretch is what this video says to stop. The group pitch is cut off.",
+    kind: "frames",
+    routineIds: ["stacey-open"],
   },
   {
     id: "morning",
