@@ -1513,6 +1513,117 @@ const SLEEP_FRAMES: Exercise[] = [
   },
 ];
 
+const SI_FRAMES: Exercise[] = [
+  {
+    id: "si-brief",
+    videoId: "KfmFvmxMZHo",
+    frame: "00",
+    title: "The glute med",
+    start: 0,
+    end: 278,
+    position: "Watch first",
+    hold: "—",
+    reps: "Once",
+    gear: "None",
+    summary:
+      "The three drills train the glute medius, the muscle they treat as the support for the low back and the SI joint. This opening is the anatomy, how to feel it, and the trigger points.",
+    steps: [
+      "The work is strength, not a stretch.",
+      "Feel the muscle on the side of the hip before the drills.",
+      "The player stops before the subscribe close.",
+    ],
+    note: "Explanation only. The first drill starts at 4:38.",
+    kind: "brief",
+  },
+  {
+    id: "si-seated",
+    videoId: "KfmFvmxMZHo",
+    frame: "01",
+    title: "Seated clamshell",
+    start: 278,
+    end: 419,
+    position: "Sitting",
+    hold: "30 seconds",
+    reps: "5 holds",
+    gear: "A chair",
+    summary:
+      "Sit, tuck the tail slightly, and lean back a little. Press the heels together and hold the glute contraction.",
+    steps: [
+      "Sit tall, then tuck the tail under and lean back just enough to feel the hips.",
+      "Press the heels together.",
+      "Hold about 30 seconds. The work is in the side of the hip, not the back.",
+      "Five holds. Rest between them.",
+    ],
+    note: "This frame is only the seated clamshell.",
+    kind: "exercise",
+  },
+  {
+    id: "si-clam",
+    videoId: "KfmFvmxMZHo",
+    frame: "02",
+    title: "Advanced clam",
+    start: 419,
+    end: 530,
+    position: "On your side",
+    hold: "A slow open and close",
+    reps: "10 each side, 3 sets",
+    gear: "Mat or carpet",
+    summary:
+      "Thighs bent about 45 degrees and about 6 inches apart. Feet move together and apart. The thighs stay parallel.",
+    steps: [
+      "Lie on your side. Bend the hips about 45 degrees.",
+      "Keep the thighs about 6 inches apart and parallel.",
+      "Slowly bring the feet together, then apart.",
+      "10 reps each side. Three sets.",
+    ],
+    note: "This frame is only the side-lying clam.",
+    kind: "exercise",
+  },
+  {
+    id: "si-hydrant",
+    videoId: "KfmFvmxMZHo",
+    frame: "03",
+    title: "Fire hydrant",
+    start: 530,
+    end: 686,
+    position: "On all fours",
+    hold: "5 seconds out to the side",
+    reps: "10 each side, 3 sets",
+    gear: "Mat or carpet",
+    summary:
+      "Hands under shoulders, spine quiet, middle braced. Take one bent knee out to the side, hold, and bring it back slowly.",
+    steps: [
+      "Set up on all fours. Spine stays quiet.",
+      "Brace lightly through the middle.",
+      "Lift one bent knee out to the side and hold about 5 seconds.",
+      "Lower slowly. 10 reps each side, three sets.",
+    ],
+    note: "This frame is only the fire hydrant.",
+    kind: "exercise",
+  },
+  {
+    id: "si-dose",
+    videoId: "KfmFvmxMZHo",
+    frame: "04",
+    title: "How often",
+    start: 686,
+    end: 705,
+    position: "Watch last",
+    hold: "—",
+    reps: "Every other day",
+    gear: "None",
+    summary:
+      "Their dose: five 30-second seated holds, then 3 sets of 10 on the clam and the hydrant, each side. Every other day for a few weeks.",
+    steps: [
+      "Seated clamshell: 5 holds of about 30 seconds.",
+      "Advanced clam and fire hydrant: 3 sets of 10 each side.",
+      "Every other day, not every day, for a few weeks.",
+    ],
+    note: "The player stops before the subscribe close. Not medical advice. Stop if pain runs down the leg.",
+    kind: "brief",
+  },
+];
+
 export const ROUTINES: Routine[] = [
   {
     id: "l5-steps",
@@ -1534,6 +1645,16 @@ export const ROUTINES: Routine[] = [
     videoId: "yBRSQB0Xyb0",
     duration: 761,
     frames: PIRIFORMIS_FRAMES,
+  },
+  {
+    id: "si-easy",
+    shortTitle: "SI joint",
+    title: "The 3 Easiest Exercises to Fix Back and SI Joint Pain",
+    presenter: "Positive Motion",
+    channel: "Positive Motion Health",
+    videoId: "KfmFvmxMZHo",
+    duration: 720,
+    frames: SI_FRAMES,
   },
   {
     id: "stacey-open",
@@ -1712,6 +1833,15 @@ export const PURPOSES: Purpose[] = [
     detail: "Four strength drills for a piriformis that feels tight. The program pitch is cut off. Not on the L5 page.",
     kind: "frames",
     routineIds: ["piriformis"],
+  },
+  {
+    id: "si",
+    title: "SI joint",
+    aim: "Glute med",
+    detail:
+      "Three easy glute-med drills for the low back and the SI joint. The subscribe close is cut off.",
+    kind: "frames",
+    routineIds: ["si-easy"],
   },
   {
     id: "stacey",
