@@ -1997,6 +1997,97 @@ const MCKENZIE_FRAMES: Exercise[] = [
   },
 ];
 
+const EPAIN_FRAMES: Exercise[] = [
+  {
+    id: "epain-press",
+    videoId: "w3Q0xwuIF20",
+    frame: "00",
+    title: "Press-up",
+    start: 0,
+    end: 33,
+    position: "Face down",
+    hold: "Up to 30 seconds",
+    reps: "3–5, three times a day",
+    gear: "Mat. A pillow under the belly if you need it",
+    summary:
+      "Hands in front, elbows under the shoulders. Press the chest up with the arms and let the belly relax. Hips stay down. This is the only extension drill in the clip.",
+    steps: [
+      "Lie face down. A pillow can go under the belly.",
+      "Hands flat in front, elbows under the shoulders.",
+      "Press the chest up with the arms, then come back down.",
+      "Do not force the height. Stop if pain travels farther down the leg.",
+    ],
+    note: "The demo starts at 0:07. Their written dose is a 30-second hold, 3 to 5 times, three times a day.",
+    kind: "exercise",
+  },
+  {
+    id: "epain-bend",
+    videoId: "w3Q0xwuIF20",
+    frame: "01",
+    title: "Sitting forward bend",
+    start: 33,
+    end: 74,
+    position: "Sitting",
+    hold: "30–60 seconds",
+    reps: "3",
+    gear: "A chair",
+    summary:
+      "Feet flat, knees at a right angle, then lean forward. This rounds the low back. Skip it if extension is the direction that quiets the leg.",
+    steps: [
+      "Sit with the feet flat and the knees near 90 degrees.",
+      "Lean forward only as far as the leg stays quiet.",
+      "Hold 30 to 60 seconds. About 3 times.",
+      "Stop if pain, numbness, or tingling travels farther down the leg.",
+    ],
+    note: "Flexion. Not the same direction as the press-up.",
+    kind: "exercise",
+  },
+  {
+    id: "epain-cat",
+    videoId: "w3Q0xwuIF20",
+    frame: "02",
+    title: "Cat-cow",
+    start: 74,
+    end: 96,
+    position: "On all fours",
+    hold: "A slow breath each way",
+    reps: "1–2 minutes",
+    gear: "Mat or carpet",
+    summary:
+      "Round the back as the chin tucks, then let the belly drop and look up. Slow. The rounding half is the one to drop if the leg gets worse.",
+    steps: [
+      "Hands under the shoulders, knees under the hips.",
+      "Breathe out and round the back, chin toward the chest.",
+      "Then let the belly drop and look slightly up.",
+      "About 1 to 2 minutes. Stop the direction that sends pain down the leg.",
+    ],
+    note: "This frame is only the cat-cow.",
+    kind: "exercise",
+  },
+  {
+    id: "epain-twist",
+    videoId: "w3Q0xwuIF20",
+    frame: "03",
+    title: "Lower back twist",
+    start: 96,
+    end: 122,
+    position: "On your back",
+    hold: "30–60 seconds",
+    reps: "Once each side",
+    gear: "Mat or carpet",
+    summary:
+      "Arms out, knees fall to one side, head turns the other way. Shoulders stay down. A twist. Skip it if the leg objects.",
+    steps: [
+      "Lie on your back, arms out, feet flat.",
+      "Turn the head one way and let the knees fall the other way.",
+      "Keep both shoulders on the floor.",
+      "Hold 30 to 60 seconds, then the other side.",
+    ],
+    note: "The clip ends here. Their article also lists a lumbar rock, which is not in this video. Not medical advice.",
+    kind: "exercise",
+  },
+];
+
 export const ROUTINES: Routine[] = [
   {
     id: "l5-steps",
@@ -2100,6 +2191,16 @@ export const ROUTINES: Routine[] = [
     videoId: "YERVv2S-vKc",
     duration: 695,
     frames: MCKENZIE_FRAMES,
+  },
+  {
+    id: "epain",
+    shortTitle: "Short set",
+    title: "Mckenzie Exercises to Treat Back Pain",
+    presenter: "ePainAssist",
+    channel: "ePainAssist",
+    videoId: "w3Q0xwuIF20",
+    duration: 122,
+    frames: EPAIN_FRAMES,
   },
   {
     id: "hip",
@@ -2344,9 +2445,9 @@ export const PURPOSES: Purpose[] = [
     title: "McKenzie",
     aim: "Extension",
     detail:
-      "Press-ups, an elbow prop, an off-center press-up, and a standing lean. The subscribe close is cut off.",
+      "The extension set first. The short clip adds a press-up, then a forward bend, a cat-cow, and a twist. Skip any of those that send pain down the leg.",
     kind: "frames",
-    routineIds: ["mckenzie"],
+    routineIds: ["mckenzie", "epain"],
   },
   {
     id: "hip",
